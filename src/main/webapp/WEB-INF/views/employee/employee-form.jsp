@@ -1,6 +1,13 @@
 <%--
   Created by IntelliJ IDEA.
   User: vikaz
+  Date: 09.09.2022
+  Time: 0:50
+  To change this template use File | Settings | File Templates.
+--%>
+<%--
+  Created by IntelliJ IDEA.
+  User: vikaz
   Date: 08.09.2022
   Time: 23:32
   To change this template use File | Settings | File Templates.
@@ -27,7 +34,7 @@
             Example</h2>
         <div class="panel panel-info">
             <div class="panel-heading">
-                <div class="panel-title">Add Customer</div>
+                <div class="panel-title">Add User</div>
             </div>
             <div class="panel-body">
                 <form:form action="saveUser" cssClass="form-horizontal"
@@ -65,3 +72,4 @@
 </div>
 </body>
 </html>
+

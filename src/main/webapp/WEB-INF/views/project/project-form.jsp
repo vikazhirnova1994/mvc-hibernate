@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: vikaz
-  Date: 08.09.2022
-  Time: 23:32
+  Date: 09.09.2022
+  Time: 1:26
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -27,14 +27,14 @@
             Example</h2>
         <div class="panel panel-info">
             <div class="panel-heading">
-                <div class="panel-title">Add Customer</div>
+                <div class="panel-title">Add User</div>
             </div>
             <div class="panel-body">
                 <form:form action="saveUser" cssClass="form-horizontal"
                            method="post" modelAttribute="user">
 
                     <!-- need to associate this data with user id -->
-                    <form:hidden path="id" />
+                    <form:hidden path="projectId" />
 
                     <div class="form-group">
                         <label for="name" class="col-md-3 control-label">First
@@ -43,11 +43,19 @@
                             <form:input path="name" cssClass="form-control" />
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="name" class="col-md-3 control-label">First
+                            Name</label>
+                        <div class="col-md-9">
+                            <form:input path="createAt" cssClass="form-control" />
+                        </div>
+                    </div>
 
                     <div class="form-group">
-                        <label for="email" class="col-md-3 control-label">Email</label>
+                        <label for="name" class="col-md-3 control-label">First
+                            Name</label>
                         <div class="col-md-9">
-                            <form:input path="email" cssClass="form-control" />
+                            <form:input path="finishAt" cssClass="form-control" />
                         </div>
                     </div>
 

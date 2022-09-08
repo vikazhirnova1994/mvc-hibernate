@@ -21,12 +21,12 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id")
-    private Long employeeId;
+    private int employeeId;
 
     // Соединение с помощью столбца внешнего ключа
     // Обязательно для поддержки отложенной загрузки с помощью прокси-объектов
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, optional = false)
-    @JoinColumn(name = "position_ID", nullable = false, unique = true)
+    @JoinColumn(name = "position_ID", unique = true)
     private Position position;
 
     @Column(name = "first_name", nullable = false)
@@ -43,5 +43,47 @@ public class Employee {
     )
     private Set<Project> projects = new HashSet<>();
 
+    public int getId() {
+        return employeeId;
+    }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
+    }
 }
