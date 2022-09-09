@@ -1,7 +1,5 @@
 package com.project.dao;
 
-import com.project.domain.Customer;
-
 import java.util.List;
 
 /**
@@ -9,7 +7,7 @@ import java.util.List;
  * @project mvc-hibernate
  */
 
-public interface DAO<T>{
+public interface IDao<T>{
     public List<T> getAll();
 
     public void save(T t);

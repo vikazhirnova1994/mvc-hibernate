@@ -1,6 +1,8 @@
 package com.project.dao;
 
-import com.project.domain.Customer;
+import com.project.dao.IDao;
+import com.project.domain.Employee;
+import com.project.domain.Position;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,39 +20,45 @@ import java.util.List;
  */
 
 @Repository
-public class CustomerDaoImpl implements CustomerDao {
+public class EmployeeDao implements IDao<Employee> {
 
     @Autowired
     private SessionFactory sessionFactory;
 
+
     @Override
-    public List<Customer> getAll() {
+    public List<Employee> getAll() {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<Customer> cq = cb.createQuery(Customer.class);
-        Root<Customer> root = cq.from(Customer.class);
+        CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
+        Root<Employee> root = cq.from(Employee.class);
         cq.select(root);
         Query query = session.createQuery(cq);
         return query.getResultList();
     }
 
     @Override
-    public void save(Customer customer) {
+    public void save(Employee employee) {
+
+        //добавить в ui выбр позиции, передать через Model
+      //  Position position = new Position();
+      //  employee.setPosition(position);
+
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.saveOrUpdate(customer);
+        currentSession.saveOrUpdate(employee);
     }
 
     @Override
-    public Customer get(int id) {
+    public Employee get(int id) {
         Session currentSession = sessionFactory.getCurrentSession();
-        Customer customer = currentSession.get(Customer.class, id);
-        return customer;
+        Employee employee = currentSession.get(Employee.class, id);
+        return employee;
     }
 
     @Override
     public void delete(int id) {
         Session session = sessionFactory.getCurrentSession();
-        Customer customer = session.byId(Customer.class).load(id);
-        session.delete(customer);
+        Employee employee = session.byId(Employee.class).load(id);
+        session.delete(employee);
     }
 }

@@ -1,8 +1,11 @@
 package com.project.service;
 
-import com.project.domain.Customer;
+import com.project.dao.IDao;
 import com.project.domain.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -10,12 +13,30 @@ import java.util.List;
  * @project mvc-hibernate
  */
 
-public interface EmployeeService {
-    public List<Employee> getAll();
+@Service
+@Transactional
+public class EmployeeService implements IService<Employee>{
 
-    public void save(Employee employee);
+    @Autowired
+    private IDao<Employee> employeeDAO;
 
-    public Employee get(int id);
+    @Override
+    public List<Employee> getAll() {
+        return employeeDAO.getAll();
+    }
 
-    public void delete(int id);
+    @Override
+    public void save(Employee employee) {
+        employeeDAO.save(employee);
+    }
+
+    @Override
+    public Employee get(int id) {
+        return employeeDAO.get(id);
+    }
+
+    @Override
+    public void delete(int id) {
+        employeeDAO.delete(id);
+    }
 }

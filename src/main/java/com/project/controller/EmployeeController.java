@@ -1,63 +1,72 @@
 package com.project.controller;
 
-import com.project.domain.Customer;
 import com.project.domain.Employee;
-import com.project.domain.Project;
-import com.project.service.CustomerService;
-import com.project.service.EmployeeService;
 import com.project.service.IService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
  * @author Victoria Zhirnova
  * @project mvc-hibernate
  */
+
+
+
+
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
 
-    @Autowired
-    private EmployeeService employeeService;
+    private final IService<Employee> employeeIService;
 
+    public EmployeeController(IService<Employee> employeeIService) {
+        this.employeeIService = employeeIService;
+    }
 
     @GetMapping("/list")
     public String listUsers(Model theModel) {
-        List<Employee> theUsers = employeeService.getAll();
-        theModel.addAttribute("users", theUsers);
+        List<Employee> employees = employeeIService.getAll();
+        theModel.addAttribute("employees", employees);
         return "employee/list-employee";
     }
 
     @GetMapping("/showForm")
     public String showFormForAdd(Model theModel) {
-        Employee theUser = new Employee();
-        theModel.addAttribute("user", theUser);
-        System.out.println((theUser.getLastName()));
+        Employee employee = new Employee();
+        theModel.addAttribute("employee", employee);
+        System.out.println((employee.getLastName()));
         return "employee/employee-form";
     }
 
-    @PostMapping("/saveUser")
-    public String saveUser(@ModelAttribute("user") Employee employee) {
+    @PostMapping("/saveEmployee")
+    public String saveUser(@Valid @ModelAttribute("employee") Employee employee, BindingResult result) {
+        if (result.hasErrors()) {
+            return "employee/employee-form";
+        }
         System.out.println(employee);
-        employeeService.save(employee);
+
+        //      ИСПРАВИТЬ
+        // получить из ui Position
+        // передать Position на нижний слой
+        employeeIService.save(employee);
         return "redirect:/employee/list";
     }
 
     @GetMapping("/updateForm")
-    public String showFormForUpdate(@RequestParam("userId") int id,
-                                    Model theModel) {
-        Employee employee  = employeeService.get(id);
-        theModel.addAttribute("user", employee);
+    public String showFormForUpdate(@RequestParam("employeeId") int id, Model theModel) {
+        Employee employee  = employeeIService.get(id);
+        theModel.addAttribute("employee", employee);
         return "employee/employee-form";
     }
 
     @GetMapping("/delete")
-    public String deleteUser(@RequestParam("userId") int id) {
-        employeeService.delete(id);
+    public String deleteUser(@RequestParam("employeeId") int id) {
+        employeeIService.delete(id);
         return "redirect:/employee/list";
     }
 }

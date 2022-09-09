@@ -6,7 +6,6 @@ package com.project.config;
  */
 
 import org.apache.commons.dbcp.BasicDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -22,8 +21,11 @@ import java.util.Properties;
 @PropertySource({"classpath:db.properties"})
 public class AppContext {
 
-    @Autowired
-    private Environment environment;
+    private final Environment environment;
+
+    public AppContext(Environment environment) {
+        this.environment = environment;
+    }
 
     // datasource configuration
     @Bean
@@ -41,9 +43,7 @@ public class AppContext {
     public LocalSessionFactoryBean sessionFactory(){
         LocalSessionFactoryBean sessionFactory=new LocalSessionFactoryBean();
         sessionFactory.setDataSource(datasource());
-        sessionFactory.setPackagesToScan(new String[]{
-                "com.project.domain"
-        });
+        sessionFactory.setPackagesToScan("com.project.domain");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
@@ -60,7 +60,7 @@ public class AppContext {
 
     // transaction manager
     @Bean
-    public HibernateTransactionManager getTransctionManager(){
+    public HibernateTransactionManager getTransactionManager(){
         HibernateTransactionManager transactionManager=new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;

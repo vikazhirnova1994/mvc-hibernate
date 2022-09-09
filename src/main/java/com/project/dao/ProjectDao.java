@@ -1,6 +1,8 @@
 package com.project.dao;
 
-import com.project.domain.Employee;
+import com.project.dao.IDao;
+import com.project.domain.Customer;
+import com.project.domain.Position;
 import com.project.domain.Project;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,7 +21,7 @@ import java.util.List;
  */
 
 @Repository
-public class ProjectDao implements DAO<Project>{
+public class ProjectDao implements IDao<Project> {
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -36,8 +38,14 @@ public class ProjectDao implements DAO<Project>{
 
     @Override
     public void save(Project project) {
+
+        //добавить в ui выбр customer, передать через Model
+     //   Customer customer = new Customer();
+       // customer.addProject(project);
+
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.saveOrUpdate(project);
+
     }
 
     @Override
@@ -51,6 +59,12 @@ public class ProjectDao implements DAO<Project>{
     public void delete(int id) {
         Session session = sessionFactory.getCurrentSession();
         Project project = session.byId(Project.class).load(id);
+
+        //добавить в ui выбр customer, передать через Model
+        //удавлять из Set при удалении проекта
+        Customer customerOfProject = project.getCustomerOfProject();
+        customerOfProject.removeProject(project);
+
         session.delete(project);
     }
 }

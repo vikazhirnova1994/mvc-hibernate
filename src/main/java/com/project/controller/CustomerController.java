@@ -1,12 +1,13 @@
 package com.project.controller;
 
 import com.project.domain.Customer;
-import com.project.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.project.service.IService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -17,41 +18,48 @@ import java.util.List;
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
-    @Autowired
-    private CustomerService customerService;
+
+    private final IService<Customer> customerIService;
+
+    public CustomerController(IService<Customer> customerIService) {
+        this.customerIService = customerIService;
+    }
 
     @GetMapping("/list")
     public String listUsers(Model theModel) {
-        List<Customer> theUsers = customerService.getAll();
-        theModel.addAttribute("users", theUsers);
+        List<Customer> customers = customerIService.getAll();
+        theModel.addAttribute("customers", customers);
         return "customer/list-customer";
     }
 
     @GetMapping("/showForm")
     public String showFormForAdd(Model theModel) {
-        Customer theUser = new Customer();
-        theModel.addAttribute("user", theUser);
+        Customer customer = new Customer();
+        theModel.addAttribute("customer", customer);
         return "customer/customer-form";
     }
 
-    @PostMapping("/saveUser")
-    public String saveUser(@ModelAttribute("user") Customer customer) {
-        System.out.println(customer);
-        customerService.save(customer);
+    @PostMapping("/saveCustomer")
+    public String saveUser(@Valid @ModelAttribute("customer") Customer customer, BindingResult result) {
+        System.out.println(customer.getName());
+        System.out.println(customer.getEmail());
+        if(result.hasErrors()){
+            return "customer/customer-form";
+        }
+        customerIService.save(customer);
         return "redirect:/customer/list";
     }
 
     @GetMapping("/updateForm")
-    public String showFormForUpdate(@RequestParam("userId") int id,
-                                    Model theModel) {
-        Customer customer = customerService.get(id);
-        theModel.addAttribute("user", customer);
+    public String showFormForUpdate(@RequestParam("customerId") int id, Model theModel) {
+        Customer customer = customerIService.get(id);
+        theModel.addAttribute("customer", customer);
         return "customer/customer-form";
     }
 
     @GetMapping("/delete")
-    public String deleteUser(@RequestParam("userId") int id) {
-        customerService.delete(id);
+    public String deleteUser(@RequestParam("customerId") int id) {
+        customerIService.delete(id);
         return "redirect:/customer/list";
     }
 }

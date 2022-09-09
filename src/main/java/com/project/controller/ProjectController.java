@@ -1,13 +1,13 @@
 package com.project.controller;
 
-import com.project.domain.Employee;
 import com.project.domain.Project;
 import com.project.service.IService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -27,33 +27,38 @@ public class ProjectController {
     @GetMapping("/list")
     public String listUsers(Model theModel) {
         List<Project> projects = projectService.getAll();
-        theModel.addAttribute("users", projects);
+        theModel.addAttribute("projects", projects);
         return "project/list-project";
     }
 
     @GetMapping("/showForm")
     public String showFormForAdd(Model theModel) {
-        Project theUser = new Project();
-        theModel.addAttribute("user", theUser);
+        Project project = new Project();
+        theModel.addAttribute("project", project);
         return "project/project-form";
     }
 
-    @PostMapping("/saveUser")
-    public String saveUser(@ModelAttribute("user")  Project project ) {
+    @PostMapping("/saveProject")
+    public String saveUser(@Valid @ModelAttribute("project")  Project project, BindingResult result ) {
+        if (result.hasErrors()) {
+            return "project/project-form";
+        }
+        //Получить customer
+        //передать нижнему слою
+
         projectService.save(project);
         return "redirect:/project/list";
     }
 
     @GetMapping("/updateForm")
-    public String showFormForUpdate(@RequestParam("userId") int id,
-                                    Model theModel) {
+    public String showFormForUpdate(@RequestParam("projectId") int id, Model theModel) {
         Project project  = projectService.get(id);
-        theModel.addAttribute("user", project);
-        return "employee/project-form";
+        theModel.addAttribute("project", project);
+        return "project/project-form";
     }
 
     @GetMapping("/delete")
-    public String deleteUser(@RequestParam("userId") int id) {
+    public String deleteUser(@RequestParam("projectId") int id) {
         projectService.delete(id);
         return "redirect:/project/list";
     }

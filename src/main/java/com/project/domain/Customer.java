@@ -1,11 +1,10 @@
 package com.project.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,40 +14,42 @@ import java.util.Objects;
  */
 
 @NoArgsConstructor
+
 @Setter
 @Getter
-@ToString(of= {"customer_id", "project_id", "name","email"})
+
 @Entity
-@Table(name="customer")
+@Table(name = "customer")
 public class Customer {
+
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="customer_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "customer_id")
     private int customerId;
 
-    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "customerOfProject") //, orphanRemoval = true
-    List<Project> projects;
-
-    @Column(name="name")
+    @NotNull
+    @NotBlank(message = "required data")
+    @Column(name = "name")
     private String name;
 
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "customerOfProject") //, orphanRemoval = true
+    List<Project> projects;
+
+    public void addProject(Project project) {
+        projects.add(project);
+        project.setCustomerOfProject(this);
+    }
+
+    public void removeProject(Project project) {
+        projects.remove(project);
+        project.setCustomerOfProject(null);
+    }
 
     public int getCustomerId() {
         return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
-    public List<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(List<Project> projects) {
-        this.projects = projects;
     }
 
     public String getName() {
@@ -63,25 +64,26 @@ public class Customer {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return customerId == customer.customerId && Objects.equals(projects, customer.projects) && Objects.equals(name, customer.name) && Objects.equals(email, customer.email);
+        return customerId == customer.customerId && Objects.equals(name, customer.name) && Objects.equals(email, customer.email) && Objects.equals(projects, customer.projects);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerId, projects, name, email);
+        return Objects.hash(customerId, name, email, projects);
     }
 
-    public int getId() {
-        return customerId;
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerId=" + customerId +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", projects=" + projects +
+                '}';
     }
-
 }

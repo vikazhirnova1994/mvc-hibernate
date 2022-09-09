@@ -1,20 +1,41 @@
 package com.project.service;
 
+import com.project.dao.IDao;
 import com.project.domain.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * @author Victoria Zhirnova
  * @project mvc-hibernate
  */
+@Service
+@Transactional
+public class CustomerService implements IService<Customer>{
 
-public interface CustomerService {
-    public List<Customer> getAll();
+    @Autowired
+    private IDao<Customer> customerDAO;
 
-    public void save(Customer customer);
+    @Override
+    public List<Customer> getAll() {
+        return customerDAO.getAll();
+    }
 
-    public Customer get(int id);
+    @Override
+    public void save(Customer customer) {
+        customerDAO.save(customer);
+    }
 
-    public void delete(int id);
+    @Override
+    public Customer get(int id) {
+        return customerDAO.get(id);
+    }
+
+    @Override
+    public void delete(int id) {
+        customerDAO.delete(id);
+    }
 }

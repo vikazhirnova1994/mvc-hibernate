@@ -1,9 +1,8 @@
 package com.project.service;
 
-import com.project.dao.DAO;
-import com.project.domain.Employee;
+import com.project.dao.IDao;
 import com.project.domain.Project;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -13,12 +12,15 @@ import java.util.List;
  * @project mvc-hibernate
  */
 
-@org.springframework.stereotype.Service
+@Service
 @Transactional
-public class ProjectService implements IService<Project>{
+public class ProjectService implements IService<Project> {
 
-    @Autowired
-    private DAO<Project> projectDAO;
+    private final IDao<Project> projectDAO;
+
+    public ProjectService(IDao<Project> projectDAO) {
+        this.projectDAO = projectDAO;
+    }
 
     @Override
     public List<Project> getAll() {
