@@ -19,6 +19,7 @@
             <a class="nav-item nav-link" href="/customer/list">Customer</a>
             <a class="nav-item nav-link" href="/project/list">Project</a>
             <a class="nav-item nav-link " href="/employee/list">Employee </a>
+            <a class="nav-item nav-link " href="/position/list">Position </a>
         </div>
     </div>
 </nav>

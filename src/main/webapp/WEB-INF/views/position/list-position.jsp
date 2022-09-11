@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: vikaz
-  Date: 09.09.2022
-  Time: 1:22
+  Date: 11.09.2022
+  Time: 16:51
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -25,9 +25,10 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link " href="/customer/list">Customer</a>
-            <a class="nav-item nav-link active" href="/project/list">Project <span class="sr-only">(do not work add)</span></a>
+            <a class="nav-item nav-link active" href="/project/list">Project </a>
             <a class="nav-item nav-link " href="/employee/list">Employee</a>
-            <a class="nav-item nav-link " href="/position/list">Position </a>
+            <a class="nav-item nav-link active" href="/position/list">Position <span class="sr-only"> has add</span></a>
+
         </div>
     </div>
 </nav>
@@ -48,28 +49,20 @@
             <div class="panel-body">
                 <table class="table table-striped table-bordered">
                     <tr>
-                        <th>Name of project</th>
-                        <th>Creation Date</th>
-                        <th>Finish Date</th>
                         <th>Customer Name</th>
-                        <th>Customer Email</th>
                         <th>Action</th>
                     </tr>
                     <!-- loop over and print our users -->
-                    <c:forEach var="oneProject" items="${projects}">
-                        <c:url var="updateLink" value="/project/updateForm"><!-- construct an "update" link with user id -->
-                            <c:param name="projectId" value="${oneProject.projectId}" />
+                    <c:forEach var="oneProject" items="${positions}">
+                        <c:url var="updateLink" value="/position/updateForm"><!-- construct an "update" link with user id -->
+                            <c:param name="positionId" value="${oneProject.positionId}" />
                         </c:url>
-                        <c:url var="deleteLink" value="/project/delete"><!-- construct an "delete" link with user id -->
-                            <c:param name="projectId" value="${oneProject.projectId}" />
+                        <c:url var="deleteLink" value="/position/delete"><!-- construct an "delete" link with user id -->
+                            <c:param name="positionId" value="${oneProject.positionId}" />
                         </c:url>
                         <tr>
-                            <td>${oneProject.name}</td>
-                            <td>${oneProject.createAt}</td>
-                            <td>${oneProject.finishAt}</td>
-                            <td>${oneProject.nameCustomer}</td>
-                            <td>${oneProject.emailCustomer}</td>
-                            <td><!-- display the update link -->
+                            <td>${oneProject.position}</td>
+                                  <td><!-- display the update link -->
                                 <a href="${updateLink}">Update</a>
                                 <a href="${deleteLink}">Delete</a>
                             </td>

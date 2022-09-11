@@ -1,7 +1,7 @@
 package com.project.dao;
 
-import com.project.domain.Customer;
 import com.project.domain.Employee;
+import com.project.domain.Position;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Victoria Zhirnova
@@ -65,5 +66,13 @@ public class EmployeeDao implements IDao<Employee, Long> {
     public void update(Employee employee) {
         Session session = sessionFactory.getCurrentSession();
         session.update(employee);
+    }
+    public Optional<Employee> getEmployeeByPosition(Position position){
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createNamedQuery("Employee_FindByPosition", Employee.class);
+        query.setParameter("position", position);
+        return query.getResultList()
+                .stream()
+                .findFirst();
     }
 }

@@ -28,6 +28,7 @@
             <a class="nav-item nav-link active" href="/customer/list">Customer</a> <span class="sr-only"> has add</span></a>
             <a class="nav-item nav-link" href="/project/list">Project</a>
             <a class="nav-item nav-link " href="/employee/list">Employee </a>
+            <a class="nav-item nav-link " href="/position/list">Position </a>
         </div>
     </div>
 </nav>

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: vikaz
-  Date: 08.09.2022
-  Time: 23:32
+  Date: 11.09.2022
+  Time: 17:19
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -22,48 +22,38 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Navbar</a>
+    <a class="navbar-brand" href=/">Navbar</a>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="/customer/list">Customer</a> <span class="sr-only"> has add</span></a>
+            <a class="nav-item nav-link active" href="/customer/list">Customer</a>
             <a class="nav-item nav-link" href="/project/list">Project</a>
             <a class="nav-item nav-link " href="/employee/list">Employee </a>
-            <a class="nav-item nav-link " href="/position/list">Position </a>
+            <a class="nav-item nav-link active" href="/position/list">Position <span class="sr-only"> has add</span></a>
         </div>
     </div>
 </nav>
 
 <div class="container">
     <div class="col-md-offset-2 col-md-7">
-        <h2 class="text-center">Add Customer</h2>
+        <h2 class="text-center">Update Position</h2>
         <div class="panel panel-info">
-         <!--   <div class="panel-heading">  <div class="panel-title">Input data</div></div>-->
+            <!--   <div class="panel-heading">  <div class="panel-title">Input data</div></div>-->
 
             <div class="panel-body">
-                <form:form action="saveCustomer" cssClass="form-horizontal"
-                           method="post" modelAttribute="customer">
-
-                    <form:hidden path="customerId" /> <!-- need to associate this data with customer id -->
+                <form:form action="updatePosition" cssClass="form-horizontal"
+                           method="post" modelAttribute="position">
+                    <form:hidden path="positionId" /> <!-- need to associate this data with customer id -->
 
                     <div class="form-group">
-                        <label for="name" class="col-md-3 control-label">First Name</label>
+                        <label for="position" class="col-md-3 control-label">Name</label>
                         <div class="col-md-9">
-                            <form:input path="name" cssClass="form-control" />
+                            <form:input path="position" cssClass="form-control" />
                         </div>
                         <div class="col-md-3">
-                            <form:errors path="name" cssClass="alert alert-warning" />
+                            <form:errors path="position" cssClass="alert alert-warning" />
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="email" class="col-md-3 control-label">Email</label>
-                        <div class="col-md-9">
-                            <form:input path="email" cssClass="form-control" />
-                        </div>
-                        <div class="col-md-3">
-                            <form:errors path="email" cssClass="alert alert-warning" />
-                        </div>
-                    </div>
 
                     <div class="form-group"><!-- Button -->
                         <div class="col-md-offset-3 col-md-9">

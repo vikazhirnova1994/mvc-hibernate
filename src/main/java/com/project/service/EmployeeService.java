@@ -43,10 +43,17 @@ public class EmployeeService implements IService<EmployeeModel, Long>{
     @Override
     public void save(EmployeeModel employeeModel) {
        Employee employee =  EmployeeMapper.employeeRequestModelToEmployee(employeeModel);
-       Position position = new Position();
-       position.setPosition(employeeModel.getPosition());
-       positionDAO.save(position);
-       employee.setPosition(position);
+        Optional<Position> customerDB = positionDAO.getByNamePosition(employeeModel.getPosition());
+        if(customerDB.isEmpty()){
+            Position position = new Position();
+            position.setPosition(employeeModel.getPosition());
+            positionDAO.save(position);
+            employee.setPosition(position);
+        }
+        if (customerDB.isPresent()) {
+            Position oldPosition = customerDB.get();
+            employee.setPosition(oldPosition);
+        }
        employeeDAO.save(employee);
     }
 
@@ -66,13 +73,13 @@ public class EmployeeService implements IService<EmployeeModel, Long>{
         Optional<Position> customerDB = positionDAO.getByNamePosition(employeeRequestModel.getPosition());
         if(customerDB.isEmpty()){
             Position newPosition = new Position();
-            positionDAO.save(newPosition);
+            newPosition.setPosition(employeeRequestModel.getPosition());
             employee.setPosition(newPosition);
+            positionDAO.save(newPosition);
         }
         if (customerDB.isPresent()){
             Position oldPosition = customerDB.get();
-            oldPosition.setPosition(employeeRequestModel.getPosition());
-            positionDAO.update(oldPosition);
+//            oldPosition.setPosition(employeeRequestModel.getPosition());
             employee.setPosition(oldPosition);
         }
         employeeDAO.update(employee);

@@ -26,13 +26,14 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="/">Navbar</a>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link " href="/customer/list">Customer</a>
             <a class="nav-item nav-link" href="/project/list">Project</a>
             <a class="nav-item nav-link active" href="/employee/list">Employee <span
                     class="sr-only">(do not work add)</span></a>
+            <a class="nav-item nav-link " href="/position/list">Position </a>
         </div>
     </div>
 </nav>
