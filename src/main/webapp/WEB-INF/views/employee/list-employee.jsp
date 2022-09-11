@@ -31,8 +31,7 @@
         <div class="navbar-nav">
             <a class="nav-item nav-link " href="/customer/list">Customer</a>
             <a class="nav-item nav-link" href="/project/list">Project</a>
-            <a class="nav-item nav-link active" href="/employee/list">Employee <span
-                    class="sr-only">(do not work add)</span></a>
+            <a class="nav-item nav-link active" href="/employee/list">Employee <span class="sr-only"> current </span></a>
             <a class="nav-item nav-link " href="/position/list">Position </a>
         </div>
     </div>
@@ -44,19 +43,14 @@
         <h2>Employee List</h2>
         <hr/>
 
-        <input type="button" value="ADD CUSTOMER"
+        <input type="button" value="ADD EMPLOYEE"
                onclick="window.location.href='showForm'; return false;" class="btn btn-primary"/>
         <br/><br/>
-
         <div class="panel panel-info">
-
             <div class="panel-heading">
                 <div class="panel-title">table from db</div>
             </div>
-
             <div class="panel-body">
-
-
                 <table class="table table-striped table-bordered">
                     <tr>
                         <th>First Name</th>
@@ -64,38 +58,27 @@
                         <th>Position</th>
                         <th>Action</th>
                     </tr>
-                    <!-- loop over and print our employees -->
                     <c:forEach var="oneEmpl" items="${employees}">
-
-                        <!-- construct an "update" link with employee id -->
                         <c:url var="updateLink" value="/employee/updateForm">
                             <c:param name="employeeId" value="${oneEmpl.employeeId}"/>
                         </c:url>
-
-                        <!-- construct an "delete" link with employee id -->
                         <c:url var="deleteLink" value="/employee/delete">
                             <c:param name="employeeId" value="${oneEmpl.employeeId}"/>
                         </c:url>
-
                         <tr>
                             <td>${oneEmpl.firstName}</td>
                             <td>${oneEmpl.lastName}</td>
                             <td>${oneEmpl.position}</td>
                             <td>
-                                <!-- display the update link -->
                                 <a href="${updateLink}">Update</a>
                                 | <a href="${deleteLink}">Delete</a>
                             </td>
-
                         </tr>
-
                     </c:forEach>
                 </table>
             </div>
         </div>
     </div>
 </div>
-
-
 </body>
 </html>

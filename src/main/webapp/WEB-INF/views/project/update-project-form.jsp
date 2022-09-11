@@ -27,7 +27,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link " href="/customer/list">Customer</a>
-            <a class="nav-item nav-link active" href="/project/list">Project <span class="sr-only">(do not work add)</span></a>
+            <a class="nav-item nav-link active" href="/project/list">Project <span class="sr-only"> current </span></a>
             <a class="nav-item nav-link " href="/employee/list">Employee</a>
             <a class="nav-item nav-link " href="/position/list">Position </a>
         </div>
@@ -37,14 +37,12 @@
 
 <div class="container">
     <div class="col-md-offset-2 col-md-7">
-        <h2 class="text-center">Add Project</h2>
+        <h2 class="text-center">Update Project</h2>
         <div class="panel panel-info">
 
             <div class="panel-body">
                 <form:form action="updateProject" cssClass="form-horizontal"
                            method="post" modelAttribute="project">
-
-                    <!-- need to associate this data with user id -->
                     <form:hidden path="projectId" />
 
                     <div class="form-group">

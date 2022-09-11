@@ -1,19 +1,22 @@
 package com.project.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Column;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.Objects;
-
-@NoArgsConstructor
-@org.hibernate.annotations.NamedQuery(name = "Position_FindByNamePosition",
+@org.hibernate.annotations.NamedQuery(
+        name = "Position_FindByNamePosition",
         query = "from Position p where p.position = :position")
-//@ToString(of= {"position_id","position"})
 @Getter
 @Setter
-
+@NoArgsConstructor
 @Entity
 @Table(name = "position")
 public class Position {
@@ -22,7 +25,6 @@ public class Position {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "position_id")
     private Long positionId;
-
 
     @Column(name = "position", nullable = false)
     private String position;

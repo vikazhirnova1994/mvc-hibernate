@@ -27,7 +27,7 @@
             <a class="nav-item nav-link " href="/customer/list">Customer</a>
             <a class="nav-item nav-link active" href="/project/list">Project </a>
             <a class="nav-item nav-link " href="/employee/list">Employee</a>
-            <a class="nav-item nav-link active" href="/position/list">Position <span class="sr-only"> has add</span></a>
+            <a class="nav-item nav-link active" href="/position/list">Position <span class="sr-only"> current </span></a>
 
         </div>
     </div>
@@ -36,9 +36,9 @@
 <div class="container">
     <div class="col-md-offset-1 col-md-10">
 
-        <h2>Project List</h2> <hr />
+        <h2>Position List</h2> <hr />
 
-        <input type="button" value="ADD PROJECT"
+        <input type="button" value="ADD POSITION"
                onclick="window.location.href='showForm'; return false;" class="btn btn-primary" />
         <br/><br/>
 

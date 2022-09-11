@@ -25,7 +25,7 @@
     <a class="navbar-brand" href="#">Navbar</a>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="/customer/list">Customer</a> <span class="sr-only"> has add</span></a>
+            <a class="nav-item nav-link active" href="/customer/list">Customer</a> <span class="sr-only"> current </span></a>
             <a class="nav-item nav-link" href="/project/list">Project</a>
             <a class="nav-item nav-link " href="/employee/list">Employee </a>
             <a class="nav-item nav-link " href="/position/list">Position </a>
@@ -35,7 +35,7 @@
 
 <div class="container">
     <div class="col-md-offset-2 col-md-7">
-        <h2 class="text-center">Add Customer</h2>
+        <h2 class="text-center">Update Customer</h2>
         <div class="panel panel-info">
          <!--   <div class="panel-heading">  <div class="panel-title">Input data</div></div>-->
 

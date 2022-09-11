@@ -28,14 +28,14 @@
             <a class="nav-item nav-link " href="/customer/list">Customer</a>
             <a class="nav-item nav-link" href="/project/list">Project</a>
             <a class="nav-item nav-link " href="/employee/list">Employee </a>
-            <a class="nav-item nav-link active" href="/position/list">Position <span class="sr-only"> has add</span></a>
+            <a class="nav-item nav-link active" href="/position/list">Position <span class="sr-only"> current </span></a>
         </div>
     </div>
 </nav>
 
 <div class="container">
     <div class="col-md-offset-2 col-md-7">
-        <h2 class="text-center">Add Positio</h2>
+        <h2 class="text-center">Add Position</h2>
         <div class="panel panel-info">
             <!--   <div class="panel-heading">  <div class="panel-title">Input data</div></div>-->
 

@@ -25,9 +25,9 @@
     <a class="navbar-brand" href="#">Navbar</a>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="/customer/list">Customer</a> <span class="sr-only"> has add</span></a>
+            <a class="nav-item nav-link " href="/customer/list">Customer</a>
             <a class="nav-item nav-link" href="/project/list">Project</a>
-            <a class="nav-item nav-link " href="/employee/list">Employee </a>
+            <a class="nav-item nav-link active" href="/employee/list">Employee <span class="sr-only"> current</span></a>
             <a class="nav-item nav-link " href="/position/list">Position </a>
         </div>
     </div>
@@ -35,16 +35,12 @@
 
 <div class="container">
     <div class="col-md-offset-2 col-md-7">
-        <h2 class="text-center">Add Customer</h2>
+        <h2 class="text-center">Add Employee</h2>
         <div class="panel panel-info">
-            <!--   <div class="panel-heading">  <div class="panel-title">Input data</div></div>-->
-
-            <div class="panel-body">
+             <div class="panel-body">
                 <form:form action="saveEmployee" cssClass="form-horizontal"
                            method="post" modelAttribute="employeeModel">
-
                     <form:hidden path="employeeId" /> <!-- need to associate this data with customer id -->
-
                     <div class="form-group">
                         <label for="firstName" class="col-md-3 control-label">First Name</label>
                         <div class="col-md-9">
@@ -66,7 +62,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="position" class="col-md-3 control-label">position</label>
+                        <label for="position" class="col-md-3 control-label">Position </label>
                         <div class="col-md-9">
                             <form:input path="position" cssClass="form-control" />
                         </div>

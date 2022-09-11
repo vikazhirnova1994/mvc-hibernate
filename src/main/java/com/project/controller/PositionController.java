@@ -1,9 +1,7 @@
 package com.project.controller;
 
-import com.project.domain.Position;
 import com.project.service.IService;
-import com.project.util.model.EmployeeModel;
-import com.project.util.model.PositionModel;
+import com.project.util.form.PositionFrom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,24 +21,24 @@ import java.util.List;
 public class PositionController {
 
     @Autowired
-    private  IService<PositionModel, Long> positionService;
+    private  IService<PositionFrom, Long> positionService;
 
     @GetMapping("/list")
-    public String listUsers(Model theModel) {
-        List<PositionModel> positions = positionService.getAll();
+    public String listPositions(Model theModel) {
+        List<PositionFrom> positions = positionService.getAll();
         theModel.addAttribute("positions", positions);
         return "position/list-position";
     }
 
     @GetMapping("/showForm")
     public String showFormForAdd(Model theModel) {
-        PositionModel positionModel = new PositionModel();
+        PositionFrom positionModel = new PositionFrom();
         theModel.addAttribute("positionModel", positionModel);
         return "position/position-form";
     }
 
     @PostMapping("/savePosition")
-    public String saveUser(@Valid @ModelAttribute("positionModel") PositionModel positionModel, BindingResult result) {
+    public String savePosition(@Valid @ModelAttribute("positionModel") PositionFrom positionModel, BindingResult result) {
         if (result.hasErrors()) {
             return "position/position-form";
         }
@@ -50,13 +48,13 @@ public class PositionController {
 
     @GetMapping("/updateForm")
     public String showFormForUpdate(@RequestParam("positionId") Long id, Model theModel) {
-        PositionModel positionModel  = positionService.get(id);
+        PositionFrom positionModel  = positionService.get(id);
         theModel.addAttribute("position", positionModel);
         return "position/update-position-form";
     }
 
     @PostMapping("/updatePosition")
-    public String updateUser(@Valid @ModelAttribute("position") PositionModel positionModel, BindingResult result) {
+    public String updatePosition(@Valid @ModelAttribute("position") PositionFrom positionModel, BindingResult result) {
         if(result.hasErrors()){
             return "position/position-form";
         }
@@ -66,7 +64,7 @@ public class PositionController {
 
 
     @GetMapping("/delete")
-    public String deleteUser(@RequestParam("positionId") Long id) {
+    public String deletePosition(@RequestParam("positionId") Long id) {
         positionService.delete(id);
         return "redirect:/position/list";
     }

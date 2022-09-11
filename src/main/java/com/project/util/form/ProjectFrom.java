@@ -1,6 +1,5 @@
-package com.project.util.model;
+package com.project.util.form;
 
-import com.project.domain.Customer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProjectModel {
+public class ProjectFrom {
     private Long projectId;
     private String name;
     private String createAt;

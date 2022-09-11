@@ -28,7 +28,7 @@
             <a class="nav-item nav-link active" href="/customer/list">Customer</a>
             <a class="nav-item nav-link" href="/project/list">Project</a>
             <a class="nav-item nav-link " href="/employee/list">Employee </a>
-            <a class="nav-item nav-link active" href="/position/list">Position <span class="sr-only"> has add</span></a>
+            <a class="nav-item nav-link active" href="/position/list">Position <span class="sr-only"> current </span></a>
         </div>
     </div>
 </nav>
@@ -37,8 +37,6 @@
     <div class="col-md-offset-2 col-md-7">
         <h2 class="text-center">Update Position</h2>
         <div class="panel panel-info">
-            <!--   <div class="panel-heading">  <div class="panel-title">Input data</div></div>-->
-
             <div class="panel-body">
                 <form:form action="updatePosition" cssClass="form-horizontal"
                            method="post" modelAttribute="position">
@@ -53,8 +51,6 @@
                             <form:errors path="position" cssClass="alert alert-warning" />
                         </div>
                     </div>
-
-
                     <div class="form-group"><!-- Button -->
                         <div class="col-md-offset-3 col-md-9">
                             <form:button cssClass="btn btn-primary">Submit</form:button>

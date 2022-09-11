@@ -1,10 +1,7 @@
 package com.project.util.mapper;
 
-import com.project.domain.Customer;
-import com.project.domain.Employee;
 import com.project.domain.Project;
-import com.project.util.model.EmployeeModel;
-import com.project.util.model.ProjectModel;
+import com.project.util.form.ProjectFrom;
 
 /**
  * @author Victoria Zhirnova
@@ -13,24 +10,23 @@ import com.project.util.model.ProjectModel;
 
 public final class ProjectMapper {
 
-    public static Project projectModelToProject(ProjectModel projectModel) {
+    public static Project projectFormToEntity(ProjectFrom projectFrom) {
         Project project = new Project();
-        //if (projectModel.get() != null) project.setCustomer(new Customer(projectModel.getCustomerId()));
-        project.setProjectId(projectModel.getProjectId());
-        project.setName(projectModel.getName());
-        project.setCreateAt(projectModel.getCreateAt());
-        project.setFinishAt(projectModel.getFinishAt());
+        project.setProjectId(projectFrom.getProjectId());
+        project.setName(projectFrom.getName());
+        project.setCreateAt(projectFrom.getCreateAt());
+        project.setFinishAt(projectFrom.getFinishAt());
         return project;
     }
 
-    public static ProjectModel projectToProjectModel(Project project) {
-        ProjectModel projectModel = new ProjectModel();
-        projectModel.setProjectId(project.getProjectId());
-        projectModel.setName(project.getName());
-        projectModel.setCreateAt(project.getCreateAt());
-        projectModel.setFinishAt(project.getFinishAt());
-        projectModel.setNameCustomer(project.getCustomer().getName());
-        projectModel.setEmailCustomer(project.getCustomer().getEmail());
+    public static ProjectFrom entityToProjectForm(Project entity) {
+        ProjectFrom projectModel = new ProjectFrom();
+        projectModel.setProjectId(entity.getProjectId());
+        projectModel.setName(entity.getName());
+        projectModel.setCreateAt(entity.getCreateAt());
+        projectModel.setFinishAt(entity.getFinishAt());
+        projectModel.setNameCustomer(entity.getCustomer().getName());
+        projectModel.setEmailCustomer(entity.getCustomer().getEmail());
         return projectModel;
     }
 }

@@ -1,13 +1,13 @@
 package com.project.controller;
 
 import com.project.domain.Customer;
-import com.project.domain.Customer;
 import com.project.service.IService;
+import com.project.util.form.CustomerForm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -20,15 +20,13 @@ import java.util.List;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    private final IService<Customer, Long> customerIService;
+    @Autowired
+    private  IService<CustomerForm, Long> customerIService;
 
-    public CustomerController(IService<Customer, Long> customerIService) {
-        this.customerIService = customerIService;
-    }
 
     @GetMapping("/list")
-    public String listUsers(Model theModel) {
-        List<Customer> customers = customerIService.getAll();
+    public String listCustomers(Model theModel) {
+        List<CustomerForm> customers = customerIService.getAll();
         theModel.addAttribute("customers", customers);
         return "customer/list-customer";
     }
@@ -41,7 +39,7 @@ public class CustomerController {
     }
 
     @PostMapping("/saveCustomer")
-    public String saveUser(@Valid @ModelAttribute("customer") Customer customer, BindingResult result) {
+    public String saveCustomer(@Valid @ModelAttribute("customer") CustomerForm customer, BindingResult result) {
         if(result.hasErrors()){
             return "customer/customer-form";
         }
@@ -51,13 +49,13 @@ public class CustomerController {
 
     @GetMapping("/updateForm")
     public String showFormForUpdate(@RequestParam("customerId") Long id, Model theModel) {
-        Customer customer = customerIService.get(id);
+        CustomerForm customer = customerIService.get(id);
         theModel.addAttribute("customer", customer);
         return "customer/update-customer-form";
     }
 
     @PostMapping("/updateCustomer")
-    public String updateUser(@Valid @ModelAttribute("customer") Customer customer, BindingResult result) {
+    public String updateCustomer(@Valid @ModelAttribute("customer") CustomerForm customer, BindingResult result) {
         if(result.hasErrors()){
             return "customer/customer-form";
         }
@@ -66,7 +64,7 @@ public class CustomerController {
     }
 
     @GetMapping("/delete")
-    public String deleteUser(@RequestParam("customerId") Long id) {
+    public String deleteCustomer(@RequestParam("customerId") Long id) {
         customerIService.delete(id);
         return "redirect:/customer/list";
     }

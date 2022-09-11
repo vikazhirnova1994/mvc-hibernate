@@ -3,8 +3,19 @@ package com.project.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Column;
+import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.FetchType;
+import javax.persistence.CascadeType;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +25,8 @@ import java.util.Set;
  */
 
 
-@org.hibernate.annotations.NamedQuery(name = "Employee_FindByPosition",
+@org.hibernate.annotations.NamedQuery(
+        name = "Employee_FindByPosition",
         query = "from Employee empl where empl.position = :position")
 @Entity
 @Table(name = "employee")

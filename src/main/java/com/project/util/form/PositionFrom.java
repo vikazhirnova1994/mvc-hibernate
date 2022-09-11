@@ -1,4 +1,4 @@
-package com.project.util.model;
+package com.project.util.form;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PositionModel {
+public class PositionFrom {
     private Long positionId;
     private String position;
 }

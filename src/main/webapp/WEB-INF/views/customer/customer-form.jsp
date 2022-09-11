@@ -25,7 +25,7 @@
     <a class="navbar-brand" href="/">Navbar</a>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="/customer/list">Customer</a> <span class="sr-only"> has add</span></a>
+            <a class="nav-item nav-link active" href="/customer/list">Customer</a> <span class="sr-only"> current</span></a>
             <a class="nav-item nav-link" href="/project/list">Project</a>
             <a class="nav-item nav-link " href="/employee/list">Employee </a>
             <a class="nav-item nav-link " href="/position/list">Position </a>
@@ -37,13 +37,11 @@
     <div class="col-md-offset-2 col-md-7">
         <h2 class="text-center">Add Customer</h2>
         <div class="panel panel-info">
-         <!--   <div class="panel-heading">  <div class="panel-title">Input data</div></div>-->
-
             <div class="panel-body">
                 <form:form action="saveCustomer" cssClass="form-horizontal"
                            method="post" modelAttribute="customer">
 
-                    <form:hidden path="customerId" /> <!-- need to associate this data with customer id -->
+                    <form:hidden path="customerId" />
 
                     <div class="form-group">
                         <label for="name" class="col-md-3 control-label">First Name</label>
@@ -65,7 +63,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group"><!-- Button -->
+                    <div class="form-group">
                         <div class="col-md-offset-3 col-md-9">
                             <form:button cssClass="btn btn-primary">Submit</form:button>
                         </div>

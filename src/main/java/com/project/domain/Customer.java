@@ -3,9 +3,16 @@ package com.project.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
-
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import javax.persistence.FetchType;
+import javax.persistence.CascadeType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +21,8 @@ import java.util.List;
  * @project mvc-hibernate
  */
 
-@org.hibernate.annotations.NamedQuery(name = "Customer_FindByName",
+@org.hibernate.annotations.NamedQuery(
+        name = "Customer_FindByName",
         query = "from Customer customer where customer.name = :name")
 @Entity
 @NoArgsConstructor
@@ -36,13 +44,10 @@ public class Customer {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "customer") //, orphanRemoval = true
     List<Project> projects = new ArrayList<>();
-
-
     public void addProject(Project project) {
         projects.add(project);
         project.setCustomer(this);
     }
-
     public void removeProject(Project project) {
         projects.remove(project);
         project.setCustomer(null);

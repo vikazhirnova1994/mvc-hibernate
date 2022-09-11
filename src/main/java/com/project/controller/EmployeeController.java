@@ -1,14 +1,11 @@
 package com.project.controller;
 
-import com.project.domain.Customer;
-import com.project.util.model.EmployeeModel;
+import com.project.util.form.EmployeeForm;
 import com.project.service.IService;
-import com.project.util.model.ProjectModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -17,35 +14,33 @@ import java.util.List;
  * @project mvc-hibernate
  */
 
-
-
-
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
 
-    private final IService<EmployeeModel, Long> employeeIService;
+    private final IService<EmployeeForm, Long> employeeIService;
 
-    public EmployeeController(IService<EmployeeModel, Long> employeeIService) {
+    public EmployeeController(IService<EmployeeForm, Long> employeeIService) {
         this.employeeIService = employeeIService;
+
     }
 
     @GetMapping("/list")
-    public String listUsers(Model theModel) {
-        List<EmployeeModel> employees = employeeIService.getAll();
+    public String listEmployees(Model theModel) {
+        List<EmployeeForm> employees = employeeIService.getAll();
         theModel.addAttribute("employees", employees);
         return "employee/list-employee";
     }
 
     @GetMapping("/showForm")
     public String showFormForAdd(Model theModel) {
-        EmployeeModel employeeModel = new EmployeeModel();
+        EmployeeForm employeeModel = new EmployeeForm();
         theModel.addAttribute("employeeModel", employeeModel);
         return "employee/employee-form";
     }
 
     @PostMapping("/saveEmployee")
-    public String saveUser(@Valid @ModelAttribute("employeeModel") EmployeeModel employeeModel, BindingResult result) {
+    public String saveEmployee(@Valid @ModelAttribute("employeeModel") EmployeeForm employeeModel, BindingResult result) {
         if (result.hasErrors()) {
             return "employee/employee-form";
         }
@@ -55,13 +50,13 @@ public class EmployeeController {
 
     @GetMapping("/updateForm")
     public String showFormForUpdate(@RequestParam("employeeId") Long id, Model theModel) {
-        EmployeeModel employee  = employeeIService.get(id);
+        EmployeeForm employee  = employeeIService.get(id);
         theModel.addAttribute("employee", employee);
         return "employee/update-employee-form";
     }
 
     @PostMapping("/updateEmployee")
-    public String updateUser(@Valid @ModelAttribute("employee") EmployeeModel employeeModel, BindingResult result) {
+    public String updateEmployee(@Valid @ModelAttribute("employee") EmployeeForm employeeModel, BindingResult result) {
         if(result.hasErrors()){
             return "customer/customer-form";
         }
@@ -69,9 +64,8 @@ public class EmployeeController {
         return "redirect:/employee/list";
     }
 
-
     @GetMapping("/delete")
-    public String deleteUser(@RequestParam("employeeId") Long id) {
+    public String deleteEmployee(@RequestParam("employeeId") Long id) {
         employeeIService.delete(id);
         return "redirect:/employee/list";
     }

@@ -1,7 +1,7 @@
 package com.project.util.mapper;
 
 import com.project.domain.Employee;
-import com.project.util.model.EmployeeModel;
+import com.project.util.form.EmployeeForm;
 
 /**
  * @author Victoria Zhirnova
@@ -9,20 +9,20 @@ import com.project.util.model.EmployeeModel;
  */
 
 public final  class EmployeeMapper {
-    public static Employee employeeRequestModelToEmployee(EmployeeModel employeeRequestModel) {
+    public static Employee employeeFormToEntity(EmployeeForm employeeForm) {
         Employee employee = new Employee();
-        employee.setEmployeeId(employeeRequestModel.getEmployeeId());
-        employee.setFirstName(employeeRequestModel.getFirstName());
-        employee.setLastName(employeeRequestModel.getLastName());
+        employee.setEmployeeId(employeeForm.getEmployeeId());
+        employee.setFirstName(employeeForm.getFirstName());
+        employee.setLastName(employeeForm.getLastName());
         return employee;
     }
 
-    public static EmployeeModel employeeToEmployeeRequestModel(Employee employee) {
-        EmployeeModel employeeRequestModel = new EmployeeModel();
-        employeeRequestModel.setEmployeeId(employee.getEmployeeId());
-        employeeRequestModel.setFirstName(employee.getFirstName());
-        employeeRequestModel.setLastName(employee.getLastName());
-        employeeRequestModel.setPosition(employee.getPosition().getPosition());
+    public static EmployeeForm entityToEmployeeFrom(Employee entity){
+        EmployeeForm employeeRequestModel = new EmployeeForm();
+        employeeRequestModel.setEmployeeId(entity.getEmployeeId());
+        employeeRequestModel.setFirstName(entity.getFirstName());
+        employeeRequestModel.setLastName(entity.getLastName());
+        employeeRequestModel.setPosition(entity.getPosition().getPosition());
         return employeeRequestModel;
     }
 }

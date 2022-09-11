@@ -1,11 +1,7 @@
-package com.project.util.model;
+package com.project.util.form;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * @author Victoria Zhirnova
@@ -14,7 +10,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class EmployeeModel {
+public class EmployeeForm {
     private Long employeeId;
     private String firstName;
     private String lastName;

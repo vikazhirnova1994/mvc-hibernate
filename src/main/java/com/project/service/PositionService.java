@@ -4,15 +4,10 @@ import com.project.dao.EmployeeDao;
 import com.project.dao.IDao;
 import com.project.domain.Employee;
 import com.project.domain.Position;
-import com.project.domain.Project;
-import com.project.util.mapper.EmployeeMapper;
 import com.project.util.mapper.PositionMapper;
-import com.project.util.mapper.ProjectMapper;
-import com.project.util.model.PositionModel;
-import com.project.util.model.ProjectModel;
+import com.project.util.form.PositionFrom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class PositionService implements IService<PositionModel, Long> {
+public class PositionService implements IService<PositionFrom, Long> {
 
     @Autowired
     private EmployeeDao employeeDAO;
@@ -34,22 +29,22 @@ public class PositionService implements IService<PositionModel, Long> {
     private  IDao<Position, Long> positionDao;
 
     @Override
-    public List<PositionModel> getAll() {
+    public List<PositionFrom> getAll() {
         return positionDao.getAll()
                 .stream()
-                .map(PositionMapper::positionToPositionModel)
+                .map(PositionMapper::entityToPositionFrom)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void save(PositionModel positionModel) {
-        Position position = PositionMapper.positionModelToPosition(positionModel);
+    public void save(PositionFrom positionModel) {
+        Position position = PositionMapper.positionFormToEntity(positionModel);
         positionDao.save(position);
     }
 
     @Override
-    public PositionModel get(Long id) {
-        return PositionMapper.positionToPositionModel(positionDao.get(id));
+    public PositionFrom get(Long id) {
+        return PositionMapper.entityToPositionFrom(positionDao.get(id));
     }
 
     @Override
@@ -62,8 +57,8 @@ public class PositionService implements IService<PositionModel, Long> {
     }
 
     @Override
-    public void update(PositionModel positionModel) {
-        Position position = PositionMapper.positionModelToPosition(positionModel);
+    public void update(PositionFrom positionModel) {
+        Position position = PositionMapper.positionFormToEntity(positionModel);
         positionDao.update(position);
     }
 }

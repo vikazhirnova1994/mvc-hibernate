@@ -18,30 +18,24 @@ public class CustomerService implements IService<Customer, Long>{
 
     @Autowired
     private IDao<Customer, Long> customerDAO;
-
     @Override
     public List<Customer> getAll() {
         return customerDAO.getAll();
     }
-
     @Override
     public void save(Customer customer) {
         customerDAO.save(customer);
     }
-
     @Override
     public Customer get(Long id) {
         return customerDAO.get(id);
     }
-
     @Override
     public void delete(Long id) {
         customerDAO.delete(id);
     }
-
     @Override
     public void update(Customer customer) {
         customerDAO.update(customer);
     }
-
 }

@@ -1,9 +1,8 @@
 package com.project.service;
 
 import com.project.dao.PositionDao;
-import com.project.domain.Customer;
 import com.project.util.mapper.EmployeeMapper;
-import com.project.util.model.EmployeeModel;
+import com.project.util.form.EmployeeForm;
 import com.project.dao.IDao;
 import com.project.domain.Employee;
 import com.project.domain.Position;
@@ -21,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class EmployeeService implements IService<EmployeeModel, Long>{
+public class EmployeeService implements IService<EmployeeForm, Long>{
 
     private final IDao<Employee, Long> employeeDAO;
 
@@ -33,16 +32,16 @@ public class EmployeeService implements IService<EmployeeModel, Long>{
     }
 
     @Override
-    public List<EmployeeModel> getAll() {
+    public List<EmployeeForm> getAll() {
         return employeeDAO.getAll()
                         .stream()
-                        .map(EmployeeMapper::employeeToEmployeeRequestModel)
+                        .map(EmployeeMapper::entityToEmployeeFrom)
                         .collect(Collectors.toList());
     }
 
     @Override
-    public void save(EmployeeModel employeeModel) {
-       Employee employee =  EmployeeMapper.employeeRequestModelToEmployee(employeeModel);
+    public void save(EmployeeForm employeeModel) {
+       Employee employee =  EmployeeMapper.employeeFormToEntity(employeeModel);
         Optional<Position> customerDB = positionDAO.getByNamePosition(employeeModel.getPosition());
         if(customerDB.isEmpty()){
             Position position = new Position();
@@ -58,8 +57,8 @@ public class EmployeeService implements IService<EmployeeModel, Long>{
     }
 
     @Override
-    public EmployeeModel get(Long id) {
-        return EmployeeMapper.employeeToEmployeeRequestModel(employeeDAO.get(id));
+    public EmployeeForm get(Long id) {
+        return EmployeeMapper.entityToEmployeeFrom(employeeDAO.get(id));
     }
 
     @Override
@@ -68,8 +67,8 @@ public class EmployeeService implements IService<EmployeeModel, Long>{
     }
 
     @Override
-    public void update(EmployeeModel employeeRequestModel) {
-        Employee employee =  EmployeeMapper.employeeRequestModelToEmployee(employeeRequestModel);
+    public void update(EmployeeForm employeeRequestModel) {
+        Employee employee =  EmployeeMapper.employeeFormToEntity(employeeRequestModel);
         Optional<Position> customerDB = positionDAO.getByNamePosition(employeeRequestModel.getPosition());
         if(customerDB.isEmpty()){
             Position newPosition = new Position();

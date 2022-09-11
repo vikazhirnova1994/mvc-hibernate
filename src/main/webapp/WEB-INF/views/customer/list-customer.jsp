@@ -24,7 +24,7 @@
   <a class="navbar-brand" href="/">Navbar</a>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="/customer/list">Customer</a> <span class="sr-only"> has add</span></a>
+      <a class="nav-item nav-link active" href="/customer/list">Customer</a> <span class="sr-only"> current </span></a>
       <a class="nav-item nav-link" href="/project/list">Project</a>
       <a class="nav-item nav-link " href="/employee/list">Employee </a>
       <a class="nav-item nav-link " href="/position/list">Position </a>
@@ -34,46 +34,30 @@
 
 <div class="container">
   <div class="col-md-offset-1 col-md-10">
-
     <h2>Customer List</h2> <hr/>
-
-    <input type="button" value="ADD EMPLOYEE"
+    <input type="button" value="ADD CUSTOMER"
            onclick="window.location.href='showForm'; return false;" class="btn btn-primary" />
     <br/><br/>
-
     <div class="panel panel-info">
-
       <div class="panel-heading"> <div class="panel-title">table from db</div> </div>
-
       <div class="panel-body">
-
-
         <table class="table table-striped table-bordered">
           <tr>
             <th>First Name</th>
             <th>Email</th>
             <th>Action</th>
           </tr>
-
-          <!-- loop over and print our employees -->
           <c:forEach var="oneEmpl" items="${customers}">
-
-            <!-- construct an "update" link with employee id -->
-            <c:url var="updateLink" value="/customer/updateForm">
+            <c:url var="updateLink" value="/customer/updateForm/">
               <c:param name="customerId" value="${oneEmpl.customerId}" />
             </c:url>
-
-            <!-- construct an "delete" link with employee id -->
             <c:url var="deleteLink" value="/customer/delete">
               <c:param name="customerId" value="${oneEmpl.customerId}" />
             </c:url>
-
             <tr>
               <td>${oneEmpl.name}</td>
               <td>${oneEmpl.email}</td>
-
               <td>
-                <!-- display the update link -->
                 <a href="${updateLink}">Update</a>
                 | <a href="${deleteLink}">Delete</a>
               </td>

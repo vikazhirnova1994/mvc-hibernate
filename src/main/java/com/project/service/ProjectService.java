@@ -3,12 +3,8 @@ package com.project.service;
 import com.project.dao.CustomerDao;
 import com.project.dao.IDao;
 import com.project.domain.*;
-import com.project.util.mapper.EmployeeMapper;
 import com.project.util.mapper.ProjectMapper;
-import com.project.util.model.CustomerModel;
-import com.project.util.model.EmployeeModel;
-import com.project.util.model.ProjectModel;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.project.util.form.ProjectFrom;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,7 +18,7 @@ import java.util.stream.Collectors;
  */
 
 @Service
-public class ProjectService implements IService<ProjectModel, Long> {
+public class ProjectService implements IService<ProjectFrom, Long> {
 
     private final CustomerDao customerDao;
     private final IDao<Project, Long> projectDao;
@@ -33,16 +29,16 @@ public class ProjectService implements IService<ProjectModel, Long> {
     }
     @Transactional
     @Override
-    public List<ProjectModel> getAll() {
+    public List<ProjectFrom> getAll() {
         return projectDao.getAll()
                 .stream()
-                .map(ProjectMapper::projectToProjectModel)
+                .map(ProjectMapper::entityToProjectForm)
                 .collect(Collectors.toList());
     }
     @Transactional
     @Override
-    public void save(ProjectModel projectModel) {
-        Project project = ProjectMapper.projectModelToProject(projectModel);
+    public void save(ProjectFrom projectModel) {
+        Project project = ProjectMapper.projectFormToEntity(projectModel);
         Optional<Customer> customerDB = customerDao.getByName(projectModel.getNameCustomer());
        if(customerDB.isEmpty()){
            Customer newCustomer = new Customer();
@@ -60,9 +56,9 @@ public class ProjectService implements IService<ProjectModel, Long> {
     }
     @Transactional
     @Override
-    public ProjectModel get(Long id) {
+    public ProjectFrom get(Long id) {
         Project project = projectDao.get(id);
-        ProjectModel projectModel = ProjectMapper.projectToProjectModel(projectDao.get(id));
+        ProjectFrom projectModel = ProjectMapper.entityToProjectForm(projectDao.get(id));
         return projectModel;
     }
 
@@ -74,8 +70,8 @@ public class ProjectService implements IService<ProjectModel, Long> {
 
     @Transactional
     @Override
-    public void update(ProjectModel projectModel) {
-        Project project =  ProjectMapper.projectModelToProject(projectModel);
+    public void update(ProjectFrom projectModel) {
+        Project project =  ProjectMapper.projectFormToEntity(projectModel);
         String nameCustomer = projectModel.getNameCustomer();
         Optional<Customer> customerDB = customerDao.getByName(nameCustomer);
         if(customerDB.isEmpty()){
