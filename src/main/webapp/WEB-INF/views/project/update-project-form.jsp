@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: vikaz
+  Date: 11.09.2022
+  Time: 6:58
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -33,7 +40,7 @@
         <div class="panel panel-info">
 
             <div class="panel-body">
-                <form:form action="saveProject" cssClass="form-horizontal"
+                <form:form action="updateProject" cssClass="form-horizontal"
                            method="post" modelAttribute="project">
 
                     <!-- need to associate this data with user id -->

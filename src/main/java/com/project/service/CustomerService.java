@@ -14,10 +14,10 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class CustomerService implements IService<Customer>{
+public class CustomerService implements IService<Customer, Long>{
 
     @Autowired
-    private IDao<Customer> customerDAO;
+    private IDao<Customer, Long> customerDAO;
 
     @Override
     public List<Customer> getAll() {
@@ -30,12 +30,17 @@ public class CustomerService implements IService<Customer>{
     }
 
     @Override
-    public Customer get(int id) {
+    public Customer get(Long id) {
         return customerDAO.get(id);
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         customerDAO.delete(id);
+    }
+
+    @Override
+    public void update(Customer customer) {
+        customerDAO.update(customer);
     }
 }

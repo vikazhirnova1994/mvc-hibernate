@@ -1,8 +1,7 @@
 package com.project.dao;
 
-import com.project.dao.IDao;
+import com.project.domain.Customer;
 import com.project.domain.Employee;
-import com.project.domain.Position;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ import java.util.List;
  */
 
 @Repository
-public class EmployeeDao implements IDao<Employee> {
+public class EmployeeDao implements IDao<Employee, Long> {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -49,16 +48,22 @@ public class EmployeeDao implements IDao<Employee> {
     }
 
     @Override
-    public Employee get(int id) {
+    public Employee get(Long id) {
         Session currentSession = sessionFactory.getCurrentSession();
         Employee employee = currentSession.get(Employee.class, id);
         return employee;
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Employee employee = session.byId(Employee.class).load(id);
         session.delete(employee);
+    }
+
+    @Override
+    public void update(Employee employee) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(employee);
     }
 }

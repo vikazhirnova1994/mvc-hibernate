@@ -1,6 +1,6 @@
 package com.project.dao;
 
-import com.project.domain.Project;
+import com.project.domain.Position;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,60 +17,45 @@ import java.util.List;
  * @project mvc-hibernate
  */
 
-
-//LOGGER
-
 @Repository
-public class ProjectDao implements IDao<Project, Long> {
+public class PositionDao implements IDao<Position, Long> {
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Project> getAll() {
+    public List<Position> getAll() {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<Project> cq = cb.createQuery(Project.class);
-        Root<Project> root = cq.from(Project.class);
+        CriteriaQuery<Position> cq = cb.createQuery(Position.class);
+        Root<Position> root = cq.from(Position.class);
         cq.select(root);
         Query query = session.createQuery(cq);
         return query.getResultList();
     }
 
     @Override
-    public void save(Project project) {
-
-        //добавить в ui выбр customer, передать через Model
-     //   Customer customer = new Customer();
-       // customer.addProject(project);
-
+    public void save(Position position) {
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.saveOrUpdate(project);
-
+        currentSession.saveOrUpdate(position);
     }
 
     @Override
-    public Project get(Long id) {
+    public Position get(Long id) {
         Session currentSession = sessionFactory.getCurrentSession();
-        Project project = currentSession.get(Project.class, id);
-        return project;
+        Position position = currentSession.get(Position.class, id);
+        return position;
     }
 
     @Override
     public void delete(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        Project project = session.byId(Project.class).load(id);
-
-        //добавить в ui выбр customer, передать через Model
-        //удавлять из Set при удалении проекта
-      //  Customer customerOfProject = project.getCustomerOfProject();
-      //  customerOfProject.removeProject(project);
-
-        session.delete(project);
+        Position position = session.byId(Position.class).load(id);
+        session.delete(position);
     }
 
     @Override
-    public void update(Project project) {
+    public void update(Position position) {
         Session session = sessionFactory.getCurrentSession();
-        session.update(project);
+        session.update(position);
     }
 }

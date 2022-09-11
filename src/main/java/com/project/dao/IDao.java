@@ -7,12 +7,14 @@ import java.util.List;
  * @project mvc-hibernate
  */
 
-public interface IDao<T>{
+public interface IDao<T, I>{
     public List<T> getAll();
 
     public void save(T t);
 
-    public T get(int id);
+    public T get(I id);
 
-    public void delete(int id);
+    public void delete(I id);
+
+    public void update(T t);
 }
