@@ -11,6 +11,8 @@ import com.project.util.model.EmployeeModel;
 public final  class EmployeeMapper {
     public static Employee employeeRequestModelToEmployee(EmployeeModel employeeRequestModel) {
         Employee employee = new Employee();
+        employee.setEmployeeId(employeeRequestModel.getEmployeeId());
+
         employee.setFirstName(employeeRequestModel.getFirstName());
         employee.setLastName(employeeRequestModel.getLastName());
         return employee;

@@ -36,7 +36,7 @@
 
     <h2>Customer List</h2> <hr/>
 
-    <input type="button" value="ADD CUSTOMER"
+    <input type="button" value="ADD EMPLOYEE"
            onclick="window.location.href='showForm'; return false;" class="btn btn-primary" />
     <br/><br/>
 
@@ -55,21 +55,21 @@
           </tr>
 
           <!-- loop over and print our employees -->
-          <c:forEach var="oneCustomer" items="${customers}">
+          <c:forEach var="oneEmpl" items="${customers}">
 
             <!-- construct an "update" link with employee id -->
             <c:url var="updateLink" value="/customer/updateForm">
-              <c:param name="customerId" value="${oneCustomer.customerId}" />
+              <c:param name="customerId" value="${oneEmpl.customerId}" />
             </c:url>
 
             <!-- construct an "delete" link with employee id -->
             <c:url var="deleteLink" value="/customer/delete">
-              <c:param name="customerId" value="${oneCustomer.customerId}" />
+              <c:param name="customerId" value="${oneEmpl.customerId}" />
             </c:url>
 
             <tr>
-              <td>${oneCustomer.name}</td>
-              <td>${oneCustomer.email}</td>
+              <td>${oneEmpl.name}</td>
+              <td>${oneEmpl.email}</td>
 
               <td>
                 <!-- display the update link -->

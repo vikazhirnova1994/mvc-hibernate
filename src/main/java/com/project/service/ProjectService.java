@@ -43,20 +43,17 @@ public class ProjectService implements IService<ProjectModel, Long> {
     @Override
     public void save(ProjectModel projectModel) {
         Project project = ProjectMapper.projectModelToProject(projectModel);
-   //     String nameCustomer = projectModel.getNameCustomer();
         Optional<Customer> customerDB = customerDao.getByName(projectModel.getNameCustomer());
        if(customerDB.isEmpty()){
            Customer newCustomer = new Customer();
            newCustomer.setName(projectModel.getNameCustomer());
            newCustomer.setEmail(projectModel.getEmailCustomer());
            customerDao.save(newCustomer);
-         //  project.setCustomer(newCustomer);
            newCustomer.addProject(project);
        }
 
        if (customerDB.isPresent()){
            Customer existCustomer = customerDB.get();
-         //  project.setCustomer(existCustomer);
            existCustomer.addProject(project);
        }
         projectDao.save(project);
@@ -68,6 +65,7 @@ public class ProjectService implements IService<ProjectModel, Long> {
         ProjectModel projectModel = ProjectMapper.projectToProjectModel(projectDao.get(id));
         return projectModel;
     }
+
     @Transactional
     @Override
     public void delete(Long id) {
@@ -85,12 +83,10 @@ public class ProjectService implements IService<ProjectModel, Long> {
             newCustomer.setName(nameCustomer);
             newCustomer.setEmail(projectModel.getEmailCustomer());
             customerDao.save(newCustomer);
-           project.setCustomer(newCustomer);
             newCustomer.addProject(project);
         }
         if (customerDB.isPresent()){
             customerDB.get().addProject(project);
-
         }
         projectDao.update(project);
     }

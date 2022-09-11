@@ -14,21 +14,9 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class EmployeeModel implements Serializable {
-
-    @NotNull
-    @NotBlank(message = "required")
+public class EmployeeModel {
     private Long employeeId;
-
-    @NotNull
-    @NotBlank(message = "required")
     private String firstName;
-
-    @NotNull
-    @NotBlank(message = "required")
     private String lastName;
-
-    @NotNull
-    @NotBlank(message = "required")
     private String position;
 }

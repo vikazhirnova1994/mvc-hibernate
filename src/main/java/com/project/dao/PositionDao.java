@@ -1,5 +1,6 @@
 package com.project.dao;
 
+import com.project.domain.Customer;
 import com.project.domain.Position;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,6 +12,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Victoria Zhirnova
@@ -57,5 +59,14 @@ public class PositionDao implements IDao<Position, Long> {
     public void update(Position position) {
         Session session = sessionFactory.getCurrentSession();
         session.update(position);
+    }
+
+    public Optional<Position> getByNamePosition(String position){
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createNamedQuery("Position_FindByNamePosition", Position.class);
+        query.setParameter("position", position);
+        return query.getResultList()
+                .stream()
+                .findFirst();
     }
 }

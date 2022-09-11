@@ -39,9 +39,8 @@
             <!--   <div class="panel-heading">  <div class="panel-title">Input data</div></div>-->
 
             <div class="panel-body">
-                <form:form action="saveEmployee" cssClass="form-horizontal"
-                           method="post" modelAttribute="employeeModel">
-
+                <form:form action="updateEmployee" cssClass="form-horizontal"
+                           method="post" modelAttribute="employee">
                     <form:hidden path="employeeId" /> <!-- need to associate this data with customer id -->
 
                     <div class="form-group">

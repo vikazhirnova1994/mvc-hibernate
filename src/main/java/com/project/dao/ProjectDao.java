@@ -38,11 +38,6 @@ public class ProjectDao implements IDao<Project, Long> {
 
     @Override
     public void save(Project project) {
-
-        //добавить в ui выбр customer, передать через Model
-     //   Customer customer = new Customer();
-       // customer.addProject(project);
-
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.saveOrUpdate(project);
 
@@ -59,12 +54,6 @@ public class ProjectDao implements IDao<Project, Long> {
     public void delete(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Project project = session.byId(Project.class).load(id);
-
-        //добавить в ui выбр customer, передать через Model
-        //удавлять из Set при удалении проекта
-      //  Customer customerOfProject = project.getCustomerOfProject();
-      //  customerOfProject.removeProject(project);
-
         session.delete(project);
     }
 

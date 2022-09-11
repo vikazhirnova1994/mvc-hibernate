@@ -8,7 +8,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @NoArgsConstructor
-
+@org.hibernate.annotations.NamedQuery(name = "Position_FindByNamePosition",
+        query = "from Position p where p.position = :position")
 //@ToString(of= {"position_id","position"})
 @Getter
 @Setter

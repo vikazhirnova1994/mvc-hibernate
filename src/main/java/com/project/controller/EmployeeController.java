@@ -1,7 +1,9 @@
 package com.project.controller;
 
+import com.project.domain.Customer;
 import com.project.util.model.EmployeeModel;
 import com.project.service.IService;
+import com.project.util.model.ProjectModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,7 +34,7 @@ public class EmployeeController {
     public String listUsers(Model theModel) {
         List<EmployeeModel> employees = employeeIService.getAll();
         theModel.addAttribute("employees", employees);
-        return "employee/list-employees";
+        return "employee/list-employee";
     }
 
     @GetMapping("/showForm")
@@ -55,8 +57,18 @@ public class EmployeeController {
     public String showFormForUpdate(@RequestParam("employeeId") Long id, Model theModel) {
         EmployeeModel employee  = employeeIService.get(id);
         theModel.addAttribute("employee", employee);
-        return "employee/employee-form";
+        return "employee/update-employee-form";
     }
+
+    @PostMapping("/updateEmployee")
+    public String updateUser(@Valid @ModelAttribute("employee") EmployeeModel employeeModel, BindingResult result) {
+        if(result.hasErrors()){
+            return "customer/customer-form";
+        }
+        employeeIService.update(employeeModel);
+        return "redirect:/employee/list";
+    }
+
 
     @GetMapping("/delete")
     public String deleteUser(@RequestParam("employeeId") Long id) {
