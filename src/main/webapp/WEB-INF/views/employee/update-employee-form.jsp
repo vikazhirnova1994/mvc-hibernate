@@ -27,7 +27,7 @@
         <div class="navbar-nav">
             <a class="nav-item nav-link " href="/customer/list">Customer</a>
             <a class="nav-item nav-link" href="/project/list">Project</a>
-            <a class="nav-item nav-link active" href="/employee/list">Employee <span class="sr-only"> current </span></a>
+            <a class="nav-item nav-link active" href="/employee/list">Employee</a> <span class="sr-only"> current </span></a>
             <a class="nav-item nav-link " href="/position/list">Position </a>
         </div>
     </div>

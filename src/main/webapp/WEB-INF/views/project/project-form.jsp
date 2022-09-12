@@ -20,7 +20,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link " href="/customer/list">Customer</a>
-            <a class="nav-item nav-link active" href="/project/list">Project <span class="sr-only"> current </span></a>
+            <a class="nav-item nav-link active" href="/project/list">Project </a> <span class="sr-only"> current </span></a>
             <a class="nav-item nav-link " href="/employee/list">Employee</a>
             <a class="nav-item nav-link " href="/position/list">Position </a>
         </div>

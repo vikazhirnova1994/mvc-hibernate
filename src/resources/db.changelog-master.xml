@@ -9,19 +9,5 @@
         <dbms type="postgresql"/>
     </preConditions>
 
-
     <include file="db.changelog/v-1.0/db.changelog-v.1.0.xml"/>
-
-
-<!--
-    <changeSet id="1" author="vika">
-        <tagDatabase tag="db_init"/>
-    </changeSet>
-
- <include file="db.changelog/v-1.0/db.changelog-v.1.0.xml" relativeToChangelogFile="true"/>
-
-       <changeSet id="2" author="vika">
-           <tagDatabase tag="v.1.0"/>
-       </changeSet>
--->
 </databaseChangeLog>
