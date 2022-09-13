@@ -38,9 +38,9 @@ public class EmployeeController {
 
     @GetMapping("/showForm")
     @ApiOperation(value = "form for adding", notes="get form for adding new employee in employee table")
-    public String showFormForAdd(Model theModel) {
-        EmployeeForm employeeModel = new EmployeeForm();
-        theModel.addAttribute("employeeModel", employeeModel);
+    public String formForAddEmployee(Model theModel) {
+        EmployeeForm employeeForm = new EmployeeForm();
+        theModel.addAttribute("employeeModel", employeeForm);
         return "employee/employee-form";
     }
 
@@ -56,26 +56,37 @@ public class EmployeeController {
 
     @GetMapping("/updateForm")
     @ApiOperation(value = "form for update", notes="get form for update existing employee in employee table")
-    public String showFormForUpdate(@RequestParam("employeeId") Long id, Model theModel) {
+    public String formForUpdateEmployee(@RequestParam("employeeId") Long id, Model theModel) {
         EmployeeForm employee  = employeeIService.get(id);
         theModel.addAttribute("employee", employee);
         return "employee/update-employee-form";
     }
 
-    @PostMapping("/updateEmployee")
+    @PutMapping("/updateEmployee")
     @ApiOperation(value = "update", notes="update existing employee in employee table")
-    public String updateEmployee(@Valid @ModelAttribute("employee") EmployeeForm employeeModel, BindingResult result) {
+    public String updateEmployee(@Valid @ModelAttribute("employee") EmployeeForm employeeForm, BindingResult result) {
         if(result.hasErrors()){
-            return "customer/customer-form";
+            return "employee/update-employee-form";
         }
-        employeeIService.update(employeeModel);
+        employeeIService.update(employeeForm);
         return "redirect:/employee/list";
     }
 
-    @GetMapping("/delete")
-    @ApiOperation(value = "delete", notes="delete existing employee in employee table, using his id")
-    public String deleteEmployee(@RequestParam("employeeId") Long id) {
-        employeeIService.delete(id);
+    @GetMapping("/deleteForm")
+    @ApiOperation(value = "form for delete", notes="get form for delete existing employee in employee table, using his id")
+    public String formForDeleteEmployee(@RequestParam("employeeId") Long id, Model theModel) {
+        EmployeeForm employeeForm  = employeeIService.get(id);
+        theModel.addAttribute("employee", employeeForm);
+        return "employee/delete-employee-form";
+    }
+
+    @DeleteMapping(value = "/deleteEmployee")
+    @ApiOperation(value = "delete", notes="delete existing employee in employee table")
+    public String deleteEmployee(@Valid @ModelAttribute("employee") EmployeeForm employeeForm, BindingResult result) {
+        if(result.hasErrors()){
+            return "employee/delete-employee-form";
+        }
+        employeeIService.delete(employeeForm.getEmployeeId());
         return "redirect:/employee/list";
     }
 }

@@ -1,6 +1,7 @@
 package com.project.controller;
 
 import com.project.service.IService;
+import com.project.util.form.PositionFrom;
 import com.project.util.form.ProjectFrom;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +38,7 @@ public class ProjectController {
 
     @GetMapping("/showForm")
     @ApiOperation(value = "form for adding", notes="get form for adding new project in project table")
-    public String showFormForAdd(Model theModel) {
+    public String formForAddProject(Model theModel) {
         ProjectFrom project = new ProjectFrom();
         theModel.addAttribute("project", project);
         return "project/project-form";
@@ -55,27 +56,37 @@ public class ProjectController {
 
     @GetMapping("/updateForm")
     @ApiOperation(value = "form for update", notes="get form for update existing project in project table")
-    public String showFormForUpdate(@RequestParam("projectId") Long id, Model theModel) {
+    public String formForUpdateProject(@RequestParam("projectId") Long id, Model theModel) {
         ProjectFrom project  = projectService.get(id);
         theModel.addAttribute("project", project);
         return "project/update-project-form";
 
     }
-    @PostMapping("/updateProject")
+    @PutMapping("/updateProject")
     @ApiOperation(value = "update", notes="update existing project in project table")
-    public String updateProject(@Valid @ModelAttribute("project") ProjectFrom project, BindingResult result) {
+    public String updateProject(@Valid @ModelAttribute("project") ProjectFrom projectFrom, BindingResult result) {
         if(result.hasErrors()){
             return "project/project-form";
         }
-        projectService.update(project);
+        projectService.update(projectFrom);
         return "redirect:/project/list";
     }
 
+    @GetMapping("/deleteForm")
+    @ApiOperation(value = "form for delete", notes="get form for delete existing project in project table, using his id")
+    public String formToDeleteProject(@RequestParam("projectId") Long id, Model theModel) {
+        ProjectFrom projectFrom  = projectService.get(id);
+        theModel.addAttribute("project", projectFrom);
+        return "project/delete-project-form";
+    }
 
-    @GetMapping("/delete")
-    @ApiOperation(value = "delete", notes="delete existing project in project table, using his id")
-    public String deleteProject(@RequestParam("projectId") Long id) {
-        projectService.delete(id);
+    @DeleteMapping(value = "/deleteProject")
+    @ApiOperation(value = "delete", notes="delete existing project in project table")
+    public String deleteEmployee(@Valid @ModelAttribute("project") ProjectFrom projectFrom, BindingResult result) {
+        if(result.hasErrors()){
+            return "project/delete-project-form";
+        }
+        projectService.delete(projectFrom.getProjectId());
         return "redirect:/project/list";
     }
 }

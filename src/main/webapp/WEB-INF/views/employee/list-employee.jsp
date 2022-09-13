@@ -58,11 +58,11 @@
                         <th>Position</th>
                         <th>Action</th>
                     </tr>
-                    <c:forEach var="oneEmpl" items="${employees}">
+                    <c:forEach var="oneEmpl" items="${employees}" >
                         <c:url var="updateLink" value="/employee/updateForm">
                             <c:param name="employeeId" value="${oneEmpl.employeeId}"/>
                         </c:url>
-                        <c:url var="deleteLink" value="/employee/delete">
+                        <c:url var="deleteLink" value="/employee/deleteForm">
                             <c:param name="employeeId" value="${oneEmpl.employeeId}"/>
                         </c:url>
                         <tr>

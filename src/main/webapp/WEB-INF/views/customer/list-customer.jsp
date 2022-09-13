@@ -51,7 +51,7 @@
             <c:url var="updateLink" value="/customer/updateForm/">
               <c:param name="customerId" value="${oneEmpl.customerId}" />
             </c:url>
-            <c:url var="deleteLink" value="/customer/delete">
+            <c:url var="deleteLink" value="/customer/deleteForm">
               <c:param name="customerId" value="${oneEmpl.customerId}" />
             </c:url>
             <tr>

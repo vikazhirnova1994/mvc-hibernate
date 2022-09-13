@@ -39,11 +39,6 @@ public class EmployeeDao implements IDao<Employee, Long> {
 
     @Override
     public void save(Employee employee) {
-
-        //добавить в ui выбр позиции, передать через Model
-      //  Position position = new Position();
-      //  employee.setPosition(position);
-
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.save(employee);
     }

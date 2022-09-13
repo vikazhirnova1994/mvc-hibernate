@@ -42,7 +42,7 @@
 
             <div class="panel-body">
                 <form:form action="updateProject" cssClass="form-horizontal"
-                           method="post" modelAttribute="project">
+                           method="put" modelAttribute="project">
                     <form:hidden path="projectId" />
 
                     <div class="form-group">

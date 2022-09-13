@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: vikaz
-  Date: 08.09.2022
-  Time: 23:32
+  Date: 13.09.2022
+  Time: 17:57
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -15,6 +15,7 @@
     <meta charset="ISO-8859-1">
     <title>MVC Hibernate</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
 
@@ -26,53 +27,79 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-item nav-link " href="/customer/list">Customer</a>
-            <a class="nav-item nav-link" href="/project/list">Project</a>
-            <a class="nav-item nav-link active" href="/employee/list">Employee</a> <span class="sr-only"> current </span></a>
+            <a class="nav-item nav-link active" href="/project/list">Project  </a> <span class="sr-only"> current </span></a>
+            <a class="nav-item nav-link " href="/employee/list">Employee</a>
             <a class="nav-item nav-link " href="/position/list">Position </a>
         </div>
     </div>
 </nav>
 
+
 <div class="container">
     <div class="col-md-offset-2 col-md-7">
-        <h2 class="text-center">Update Employee</h2>
+        <h2 class="text-center">Delete Project</h2>
         <div class="panel panel-info">
+
             <div class="panel-body">
-                <form:form method="put" action="updateEmployee" cssClass="form-horizontal"  modelAttribute="employee">
-                    <form:hidden path="employeeId" /> <!-- need to associate this data with customer id -->
+                <form:form method="delete" action="deleteProject" cssClass="form-horizontal"  modelAttribute="project">
+                    <form:hidden path="projectId" />
+
                     <div class="form-group">
-                        <label for="firstName" class="col-md-3 control-label">First Name</label>
+                        <label for="name" class="col-md-3 control-label">Name of project</label>
                         <div class="col-md-9">
-                            <form:input path="firstName" cssClass="form-control" />
+                            <form:input path="name" cssClass="form-control" />
                         </div>
                         <div class="col-md-3">
-                            <form:errors path="firstName" cssClass="alert alert-warning" />
+                            <form:errors path="name" cssClass="alert alert-warning" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="createAt" class="col-md-3 control-label">Creation date</label>
+                        <div class="col-md-9">
+                            <form:input path="createAt" cssClass="form-control" />
+                        </div>
+                        <div class="col-md-3">
+                            <form:errors path="createAt" cssClass="alert alert-warning" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="lastName" class="col-md-3 control-label">lastName</label>
+                        <label for="finishAt" class="col-md-3 control-label">Finish date</label>
                         <div class="col-md-9">
-                            <form:input path="lastName" cssClass="form-control" />
+                            <form:input path="finishAt" cssClass="form-control" />
                         </div>
                         <div class="col-md-3">
-                            <form:errors path="lastName" cssClass="alert alert-warning" />
+                            <form:errors path="finishAt" cssClass="alert alert-warning" />
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <label for="position" class="col-md-3 control-label">position</label>
+                        <label for="nameCustomer" class="col-md-3 control-label">Name customer</label>
                         <div class="col-md-9">
-                            <form:input path="position" cssClass="form-control" />
+                            <form:input path="nameCustomer" cssClass="form-control" />
                         </div>
                         <div class="col-md-3">
-                            <form:errors path="position" cssClass="alert alert-warning" />
+                            <form:errors path="nameCustomer" cssClass="alert alert-warning" />
                         </div>
                     </div>
-                    <div class="form-group"><!-- Button -->
+
+                    <div class="form-group">
+                        <label for="emailCustomer" class="col-md-3 control-label">Name customer</label>
+                        <div class="col-md-9">
+                            <form:input path="emailCustomer" cssClass="form-control" />
+                        </div>
+                        <div class="col-md-3">
+                            <form:errors path="emailCustomer" cssClass="alert alert-warning" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <!-- Button -->
                         <div class="col-md-offset-3 col-md-9">
-                            <form:button cssClass="btn btn-primary">Update</form:button>
+                            <form:button cssClass="btn btn-primary">Delete</form:button>
                         </div>
                     </div>
+
                 </form:form>
             </div>
         </div>
@@ -80,3 +107,4 @@
 </div>
 </body>
 </html>
+

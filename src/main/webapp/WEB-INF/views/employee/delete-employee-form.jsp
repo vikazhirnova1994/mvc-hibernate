@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: vikaz
-  Date: 08.09.2022
-  Time: 23:32
+  Date: 13.09.2022
+  Time: 16:51
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -25,9 +25,9 @@
     <a class="navbar-brand" href="/">Navbar</a>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="/customer/list">Customer</a> <span class="sr-only"> current</span></a>
+            <a class="nav-item nav-link " href="/customer/list">Customer</a>
             <a class="nav-item nav-link" href="/project/list">Project</a>
-            <a class="nav-item nav-link " href="/employee/list">Employee </a>
+            <a class="nav-item nav-link active" href="/employee/list">Employee</a> <span class="sr-only"> current </span></a>
             <a class="nav-item nav-link " href="/position/list">Position </a>
         </div>
     </div>
@@ -35,37 +35,42 @@
 
 <div class="container">
     <div class="col-md-offset-2 col-md-7">
-        <h2 class="text-center">Add Customer</h2>
+        <h2 class="text-center">Delete Employee</h2>
         <div class="panel panel-info">
             <div class="panel-body">
-                <form:form action="saveCustomer" cssClass="form-horizontal"
-                           method="post" modelAttribute="customer">
-
-                    <form:hidden path="customerId" />
-
+                <form:form method="delete" action="deleteEmployee" cssClass="form-horizontal"  modelAttribute="employee">
+                    <form:hidden path="employeeId" /> <!-- need to associate this data with customer id -->
                     <div class="form-group">
-                        <label for="name" class="col-md-3 control-label">First Name</label>
+                        <label for="firstName" class="col-md-3 control-label">First Name</label>
                         <div class="col-md-9">
-                            <form:input path="name" cssClass="form-control" />
+                            <form:input path="firstName" cssClass="form-control" />
                         </div>
                         <div class="col-md-3">
-                            <form:errors path="name" cssClass="alert alert-warning" />
+                            <form:errors path="firstName" cssClass="alert alert-warning" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="email" class="col-md-3 control-label">Email</label>
+                        <label for="lastName" class="col-md-3 control-label">lastName</label>
                         <div class="col-md-9">
-                            <form:input path="email" cssClass="form-control" />
+                            <form:input path="lastName" cssClass="form-control" />
                         </div>
                         <div class="col-md-3">
-                            <form:errors path="email" cssClass="alert alert-warning" />
+                            <form:errors path="lastName" cssClass="alert alert-warning" />
                         </div>
                     </div>
-
                     <div class="form-group">
+                        <label for="position" class="col-md-3 control-label">position</label>
+                        <div class="col-md-9">
+                            <form:input path="position" cssClass="form-control" />
+                        </div>
+                        <div class="col-md-3">
+                            <form:errors path="position" cssClass="alert alert-warning" />
+                        </div>
+                    </div>
+                    <div class="form-group"><!-- Button -->
                         <div class="col-md-offset-3 col-md-9">
-                            <form:button cssClass="btn btn-primary">Create</form:button>
+                            <form:button cssClass="btn btn-primary">Delete</form:button>
                         </div>
                     </div>
                 </form:form>

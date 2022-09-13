@@ -38,8 +38,7 @@
         <h2 class="text-center">Update Position</h2>
         <div class="panel panel-info">
             <div class="panel-body">
-                <form:form action="updatePosition" cssClass="form-horizontal"
-                           method="post" modelAttribute="position">
+                <form:form  method="put" action="updatePosition" cssClass="form-horizontal" modelAttribute="position">
                     <form:hidden path="positionId" /> <!-- need to associate this data with customer id -->
 
                     <div class="form-group">

@@ -41,7 +41,7 @@
 
             <div class="panel-body">
                 <form:form action="updateCustomer" cssClass="form-horizontal"
-                           method="post" modelAttribute="customer">
+                           method="put" modelAttribute="customer">
 
                     <form:hidden path="customerId" /> <!-- need to associate this data with customer id -->
 
@@ -67,7 +67,7 @@
 
                     <div class="form-group"><!-- Button -->
                         <div class="col-md-offset-3 col-md-9">
-                            <form:button cssClass="btn btn-primary">Submit</form:button>
+                            <form:button cssClass="btn btn-primary">Update</form:button>
                         </div>
                     </div>
                 </form:form>

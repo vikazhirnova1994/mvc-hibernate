@@ -41,7 +41,8 @@ public class ProjectService implements IService<ProjectFrom, Long> {
         Project project = ProjectMapper.projectFormToEntity(projectFrom);
         Optional<Customer> customerFromDbToGetByName = customerDao.getByName(projectFrom.getNameCustomer());
         if(customerFromDbToGetByName.isEmpty()){
-            createCouplingWithNewCustomer(projectFrom, project);
+            Customer newCustomer = createCouplingWithNewCustomer(projectFrom, project);
+            customerDao.save(newCustomer);
         }
        if (customerFromDbToGetByName.isPresent()){
            createCouplingWithExistCustomer(project, customerFromDbToGetByName);
@@ -63,31 +64,43 @@ public class ProjectService implements IService<ProjectFrom, Long> {
     }
 
     @Override
-    public void update(ProjectFrom projectModel) {
-        Project project =  ProjectMapper.projectFormToEntity(projectModel);
+    public void update(ProjectFrom projectFrom) {
+        Project project =  ProjectMapper.projectFormToEntity(projectFrom);
         Optional<Customer> customerFromDBToGetByName = customerDao.getByName(
-                projectModel.getNameCustomer());
+                projectFrom.getNameCustomer());
         if(customerFromDBToGetByName.isEmpty()){
-            createCouplingWithNewCustomer(projectModel, project);
+            Customer newCustomer = createCouplingWithNewCustomer(projectFrom, project);
+            customerDao.save(newCustomer);
         }
         if (customerFromDBToGetByName.isPresent()){
-            createCouplingWithExistCustomer(project, customerFromDBToGetByName);
+            Customer existCustomer = updateCouplingWithExistCustomer(projectFrom, project, customerFromDBToGetByName);
+            customerDao.update(existCustomer);
         }
         projectDao.update(project);
     }
 
-    private void createCouplingWithExistCustomer(Project project, Optional<Customer> customerFromDBToGetByName) {
+    private Customer updateCouplingWithExistCustomer(ProjectFrom projectFrom, Project project, Optional<Customer> customerFromDBToGetByName) {
+        Customer existCustomer = customerFromDBToGetByName.get();
+        existCustomer.setName(projectFrom.getNameCustomer());
+        existCustomer.setEmail(projectFrom.getEmailCustomer());
+        existCustomer.addProject(project);
+        project.setCustomer(existCustomer);
+        return existCustomer;
+    }
+
+    private Customer createCouplingWithExistCustomer(Project project, Optional<Customer> customerFromDBToGetByName) {
         Customer existCustomer = customerFromDBToGetByName.get();
         existCustomer.addProject(project);
         project.setCustomer(existCustomer);
+        return existCustomer;
     }
 
-    private void createCouplingWithNewCustomer(ProjectFrom projectFrom, Project project) {
+    private Customer createCouplingWithNewCustomer(ProjectFrom projectFrom, Project project) {
         Customer newCustomer = new Customer();
         newCustomer.setName(projectFrom.getNameCustomer());
         newCustomer.setEmail(projectFrom.getEmailCustomer());
         newCustomer.addProject(project);
-        customerDao.save(newCustomer);
         project.setCustomer(newCustomer);
+        return newCustomer;
     }
 }

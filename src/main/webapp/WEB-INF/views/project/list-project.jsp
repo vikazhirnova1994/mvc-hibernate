@@ -60,7 +60,7 @@
                         <c:url var="updateLink" value="/project/updateForm"><!-- construct an "update" link with user id -->
                             <c:param name="projectId" value="${oneProject.projectId}" />
                         </c:url>
-                        <c:url var="deleteLink" value="/project/delete"><!-- construct an "delete" link with user id -->
+                        <c:url var="deleteLink" value="/project/deleteForm"><!-- construct an "delete" link with user id -->
                             <c:param name="projectId" value="${oneProject.projectId}" />
                         </c:url>
                         <tr>

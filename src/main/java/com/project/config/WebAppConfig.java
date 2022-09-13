@@ -44,5 +44,4 @@ public class WebAppConfig implements WebMvcConfigurer {
         registry.addViewController("/swagger-ui/")
                 .setViewName("forward:" + "/swagger-ui/index.html");
     }
-
 }

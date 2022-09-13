@@ -28,19 +28,19 @@ public class ProjectFrom {
 
     @NotNull
     @NotBlank(message = "required")
-    @ApiModelProperty(value = "name of project", example = "2022.09.12", required = true)
+    @ApiModelProperty(value = "createAt of project", example = "2022.09.12", required = true)
     private String createAt;
 
-    @ApiModelProperty(value = "name of project", example = "2022.09.12")
+    @ApiModelProperty(value = "finishAt of project", example = "2022.09.12")
     private String finishAt;
 
     @NotNull
     @NotBlank(message = "required")
-    @ApiModelProperty(value = "name of customer", example = "aston", required = true)
+    @ApiModelProperty(value = "Name Customer of project", example = "aston", required = true)
     private String nameCustomer;
 
     @NotNull
     @NotBlank(message = "required")
-    @ApiModelProperty(value = "email of customer", example = "aston@gmail.com", required = true)
+    @ApiModelProperty(value = "Email Customer of project", example = "aston@gmail.com", required = true)
     private String emailCustomer;
 }

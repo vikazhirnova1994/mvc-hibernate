@@ -42,13 +42,13 @@ public class EmployeeService implements IService<EmployeeForm, Long>{
     @Override
     public void save(EmployeeForm employeeForm) {
        Employee employee =  EmployeeMapper.employeeFormToEntity(employeeForm);
-        Optional<Position> customerDB = positionDAO.getByNamePosition(employeeForm.getPosition());
-        if(customerDB.isEmpty()){
+       Optional<Position> customerDB = positionDAO.getByNamePosition(employeeForm.getPosition());
+       if(customerDB.isEmpty()){
             createCouplingWithNewEmployee(employeeForm, employee);
-        }
-        if (customerDB.isPresent()) {
+       }
+       if (customerDB.isPresent()) {
             createCouplingWithExistEmployee(employee, customerDB);
-        }
+       }
        employeeDAO.save(employee);
     }
 
