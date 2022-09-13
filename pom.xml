@@ -149,16 +149,6 @@
       <version>2.2.2</version>
     </dependency>
 
-    <!-- <dependency>
-       <groupId>org.springdoc</groupId>
-       <artifactId>springdoc-openapi-ui</artifactId>
-       <version>1.6.4</version>
-     </dependency>
- -->
-
-
-
-
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -209,12 +199,6 @@
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-maven-plugin</artifactId>
         <version>3.6.3</version>
-        <configuration>
-          <url>jdbc:postgresql://localhost:5432/project_manag</url>
-          <username>postgres</username>
-          <password>2104V</password>
-          <changeLogFile>classpath:/db/changelog/db.changelog-master.xml</changeLogFile>
-        </configuration>
       </plugin>
 
       <plugin>
