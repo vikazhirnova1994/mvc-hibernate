@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 @ApiModel(value = "model for adding data in customer table")
 public class CustomerForm {
 
-    @ApiModelProperty(value = "id of customer", example = "1")
+   @ApiModelProperty(value = "id of customer", example = "1")
     private Long customerId;
 
     @NotNull

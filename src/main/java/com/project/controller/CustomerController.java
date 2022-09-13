@@ -1,6 +1,5 @@
 package com.project.controller;
 
-import com.project.domain.Customer;
 import com.project.service.IService;
 import com.project.util.form.CustomerForm;
 import io.swagger.annotations.Api;
@@ -38,7 +37,7 @@ public class CustomerController {
     @GetMapping("/showForm")
     @ApiOperation(value = "form for adding", notes="get form for adding new customer in customer table")
     public String showFormForAdd(Model theModel) {
-        Customer customer = new Customer();
+        CustomerForm customer = new CustomerForm();
         theModel.addAttribute("customer", customer);
         return "customer/customer-form";
     }

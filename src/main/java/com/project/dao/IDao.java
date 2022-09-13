@@ -1,6 +1,9 @@
 package com.project.dao;
 
+import com.project.domain.Position;
+
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Victoria Zhirnova
@@ -17,4 +20,5 @@ public interface IDao<T, I>{
     public void delete(I id);
 
     public void update(T t);
+
 }

@@ -44,14 +44,17 @@ public class PositionService implements IService<PositionFrom, Long> {
 
     @Override
     public PositionFrom get(Long id) {
-        return PositionMapper.entityToPositionFrom(positionDao.get(id));
+        return PositionMapper.entityToPositionFrom(
+                positionDao.get(id));
     }
 
     @Override
     public void delete(Long id) {
-        Optional<Employee> employeeDB = employeeDAO.getEmployeeByPosition(positionDao.get(id));
-        if(employeeDB.isPresent()) {
-            employeeDAO.delete(employeeDB.get().getEmployeeId());
+        Optional<Employee> employeeFromDbToGetByPosition =
+                employeeDAO.getEmployeeByPosition(positionDao.get(id));
+        if(employeeFromDbToGetByPosition.isPresent()) {
+            Employee employeeFormDb = employeeFromDbToGetByPosition.get();
+            employeeDAO.delete(employeeFormDb.getEmployeeId());
         }
         positionDao.delete(id);
     }

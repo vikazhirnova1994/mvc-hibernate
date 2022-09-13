@@ -45,7 +45,7 @@ public class EmployeeDao implements IDao<Employee, Long> {
       //  employee.setPosition(position);
 
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.saveOrUpdate(employee);
+        currentSession.save(employee);
     }
 
     @Override
@@ -67,6 +67,7 @@ public class EmployeeDao implements IDao<Employee, Long> {
         Session session = sessionFactory.getCurrentSession();
         session.update(employee);
     }
+
     public Optional<Employee> getEmployeeByPosition(Position position){
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createNamedQuery("Employee_FindByPosition", Employee.class);

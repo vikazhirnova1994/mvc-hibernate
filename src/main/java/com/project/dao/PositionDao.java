@@ -38,7 +38,7 @@ public class PositionDao implements IDao<Position, Long> {
     @Override
     public void save(Position position) {
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.saveOrUpdate(position);
+        currentSession.save(position);
     }
 
     @Override

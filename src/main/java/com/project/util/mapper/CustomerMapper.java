@@ -19,7 +19,7 @@ public final class CustomerMapper {
 
     public static CustomerForm entityToCustomerForm(Customer entity) {
         CustomerForm customerFormModel = new CustomerForm();
-        customerFormModel.setCustomerId(entity.getCustomerId());
+       customerFormModel.setCustomerId(entity.getCustomerId());
         customerFormModel.setName(entity.getName());
         customerFormModel.setEmail(entity.getEmail());
         return customerFormModel;

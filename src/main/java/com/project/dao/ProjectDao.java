@@ -39,8 +39,7 @@ public class ProjectDao implements IDao<Project, Long> {
     @Override
     public void save(Project project) {
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.saveOrUpdate(project);
-
+        currentSession.save(project);
     }
 
     @Override

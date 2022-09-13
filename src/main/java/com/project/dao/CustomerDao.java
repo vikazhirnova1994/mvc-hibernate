@@ -39,7 +39,7 @@ public class CustomerDao implements IDao<Customer, Long> {
     @Override
     public void save(Customer customer) {
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.saveOrUpdate(customer);
+        currentSession.save(customer);
     }
 
     @Override

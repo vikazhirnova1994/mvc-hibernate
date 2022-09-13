@@ -2,11 +2,14 @@ package com.project.service;
 
 import com.project.dao.IDao;
 import com.project.domain.Customer;
+import com.project.util.form.CustomerForm;
+import com.project.util.mapper.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Victoria Zhirnova
@@ -14,28 +17,34 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class CustomerService implements IService<Customer, Long>{
+public class CustomerService implements IService<CustomerForm, Long>{
 
     @Autowired
     private IDao<Customer, Long> customerDAO;
     @Override
-    public List<Customer> getAll() {
-        return customerDAO.getAll();
+    public List<CustomerForm> getAll() {
+        return customerDAO.getAll()
+                .stream()
+                .map(CustomerMapper::entityToCustomerForm)
+                .collect(Collectors.toList());
     }
     @Override
-    public void save(Customer customer) {
-        customerDAO.save(customer);
+    public void save(CustomerForm customer) {
+        customerDAO.save(
+                CustomerMapper.customerFormToEntity(customer));
     }
     @Override
-    public Customer get(Long id) {
-        return customerDAO.get(id);
+    public CustomerForm get(Long id) {
+        return CustomerMapper.entityToCustomerForm(
+                      customerDAO.get(id));
     }
     @Override
     public void delete(Long id) {
         customerDAO.delete(id);
     }
+
     @Override
-    public void update(Customer customer) {
-        customerDAO.update(customer);
+    public void update(CustomerForm customer) {
+        customerDAO.update(CustomerMapper.customerFormToEntity(customer));
     }
 }

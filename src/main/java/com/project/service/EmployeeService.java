@@ -40,21 +40,18 @@ public class EmployeeService implements IService<EmployeeForm, Long>{
     }
 
     @Override
-    public void save(EmployeeForm employeeModel) {
-       Employee employee =  EmployeeMapper.employeeFormToEntity(employeeModel);
-        Optional<Position> customerDB = positionDAO.getByNamePosition(employeeModel.getPosition());
+    public void save(EmployeeForm employeeForm) {
+       Employee employee =  EmployeeMapper.employeeFormToEntity(employeeForm);
+        Optional<Position> customerDB = positionDAO.getByNamePosition(employeeForm.getPosition());
         if(customerDB.isEmpty()){
-            Position position = new Position();
-            position.setPosition(employeeModel.getPosition());
-            positionDAO.save(position);
-            employee.setPosition(position);
+            createCouplingWithNewEmployee(employeeForm, employee);
         }
         if (customerDB.isPresent()) {
-            Position oldPosition = customerDB.get();
-            employee.setPosition(oldPosition);
+            createCouplingWithExistEmployee(employee, customerDB);
         }
        employeeDAO.save(employee);
     }
+
 
     @Override
     public EmployeeForm get(Long id) {
@@ -67,20 +64,28 @@ public class EmployeeService implements IService<EmployeeForm, Long>{
     }
 
     @Override
-    public void update(EmployeeForm employeeRequestModel) {
-        Employee employee =  EmployeeMapper.employeeFormToEntity(employeeRequestModel);
-        Optional<Position> customerDB = positionDAO.getByNamePosition(employeeRequestModel.getPosition());
-        if(customerDB.isEmpty()){
-            Position newPosition = new Position();
-            newPosition.setPosition(employeeRequestModel.getPosition());
-            employee.setPosition(newPosition);
-            positionDAO.save(newPosition);
+    public void update(EmployeeForm employeeForm) {
+        Employee employee =  EmployeeMapper.employeeFormToEntity(employeeForm);
+        Optional<Position> employeeFromDBToGetByName = positionDAO.getByNamePosition(employeeForm.getPosition());
+        if(employeeFromDBToGetByName.isEmpty()){
+            createCouplingWithNewEmployee(employeeForm, employee);
         }
-        if (customerDB.isPresent()){
-            Position oldPosition = customerDB.get();
-//            oldPosition.setPosition(employeeRequestModel.getPosition());
-            employee.setPosition(oldPosition);
+        if (employeeFromDBToGetByName.isPresent()){
+            createCouplingWithExistEmployee(employee, employeeFromDBToGetByName);
         }
         employeeDAO.update(employee);
+    }
+
+
+    private void createCouplingWithExistEmployee(Employee employee, Optional<Position> employeeFromDBToGetByName) {
+        Position oldPosition = employeeFromDBToGetByName.get();
+        employee.setPosition(oldPosition);
+    }
+
+    private void createCouplingWithNewEmployee(EmployeeForm employeeForm, Employee employee) {
+        Position position = new Position();
+        position.setPosition(employeeForm.getPosition());
+        positionDAO.save(position);
+        employee.setPosition(position);
     }
 }

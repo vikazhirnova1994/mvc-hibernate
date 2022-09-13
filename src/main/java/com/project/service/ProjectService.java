@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
  */
 
 @Service
+@Transactional
 public class ProjectService implements IService<ProjectFrom, Long> {
 
     private final CustomerDao customerDao;
@@ -27,7 +28,7 @@ public class ProjectService implements IService<ProjectFrom, Long> {
         this.projectDao = projectDao;
         this.customerDao = customerDao;
     }
-    @Transactional
+
     @Override
     public List<ProjectFrom> getAll() {
         return projectDao.getAll()
@@ -35,56 +36,58 @@ public class ProjectService implements IService<ProjectFrom, Long> {
                 .map(ProjectMapper::entityToProjectForm)
                 .collect(Collectors.toList());
     }
-    @Transactional
     @Override
-    public void save(ProjectFrom projectModel) {
-        Project project = ProjectMapper.projectFormToEntity(projectModel);
-        Optional<Customer> customerDB = customerDao.getByName(projectModel.getNameCustomer());
-       if(customerDB.isEmpty()){
-           Customer newCustomer = new Customer();
-           newCustomer.setName(projectModel.getNameCustomer());
-           newCustomer.setEmail(projectModel.getEmailCustomer());
-           customerDao.save(newCustomer);
-           newCustomer.addProject(project);
-       }
-
-       if (customerDB.isPresent()){
-           Customer existCustomer = customerDB.get();
-           existCustomer.addProject(project);
+    public void save(ProjectFrom projectFrom) {
+        Project project = ProjectMapper.projectFormToEntity(projectFrom);
+        Optional<Customer> customerFromDbToGetByName = customerDao.getByName(projectFrom.getNameCustomer());
+        if(customerFromDbToGetByName.isEmpty()){
+            createCouplingWithNewCustomer(projectFrom, project);
+        }
+       if (customerFromDbToGetByName.isPresent()){
+           createCouplingWithExistCustomer(project, customerFromDbToGetByName);
        }
         projectDao.save(project);
     }
-    @Transactional
+
     @Override
     public ProjectFrom get(Long id) {
         Project project = projectDao.get(id);
-        ProjectFrom projectModel = ProjectMapper.entityToProjectForm(projectDao.get(id));
+        ProjectFrom projectModel = ProjectMapper.entityToProjectForm(
+                projectDao.get(id));
         return projectModel;
     }
 
-    @Transactional
     @Override
     public void delete(Long id) {
         projectDao.delete(id);
     }
 
-    @Transactional
     @Override
     public void update(ProjectFrom projectModel) {
         Project project =  ProjectMapper.projectFormToEntity(projectModel);
-        String nameCustomer = projectModel.getNameCustomer();
-        Optional<Customer> customerDB = customerDao.getByName(nameCustomer);
-        if(customerDB.isEmpty()){
-            Customer newCustomer = new Customer();
-            newCustomer.setName(nameCustomer);
-            newCustomer.setEmail(projectModel.getEmailCustomer());
-            customerDao.save(newCustomer);
-            newCustomer.addProject(project);
+        Optional<Customer> customerFromDBToGetByName = customerDao.getByName(
+                projectModel.getNameCustomer());
+        if(customerFromDBToGetByName.isEmpty()){
+            createCouplingWithNewCustomer(projectModel, project);
         }
-        if (customerDB.isPresent()){
-            customerDB.get().addProject(project);
+        if (customerFromDBToGetByName.isPresent()){
+            createCouplingWithExistCustomer(project, customerFromDBToGetByName);
         }
         projectDao.update(project);
     }
 
+    private void createCouplingWithExistCustomer(Project project, Optional<Customer> customerFromDBToGetByName) {
+        Customer existCustomer = customerFromDBToGetByName.get();
+        existCustomer.addProject(project);
+        project.setCustomer(existCustomer);
+    }
+
+    private void createCouplingWithNewCustomer(ProjectFrom projectFrom, Project project) {
+        Customer newCustomer = new Customer();
+        newCustomer.setName(projectFrom.getNameCustomer());
+        newCustomer.setEmail(projectFrom.getEmailCustomer());
+        newCustomer.addProject(project);
+        customerDao.save(newCustomer);
+        project.setCustomer(newCustomer);
+    }
 }
