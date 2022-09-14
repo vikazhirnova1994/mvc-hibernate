@@ -1,6 +1,7 @@
 package com.project.dao;
 
 import com.project.domain.Employee;
+import com.project.domain.Position;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Victoria Zhirnova
@@ -18,10 +20,11 @@ import java.util.List;
  */
 
 @Repository
-public class EmployeeDaoImp implements EmployeeDAO {
+public class EmployeeDao implements IDao<Employee, Long> {
 
     @Autowired
     private SessionFactory sessionFactory;
+
 
     @Override
     public List<Employee> getAll() {
@@ -34,24 +37,38 @@ public class EmployeeDaoImp implements EmployeeDAO {
         return query.getResultList();
     }
 
-
     @Override
     public void save(Employee employee) {
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.saveOrUpdate(employee);
+        currentSession.save(employee);
     }
 
     @Override
-    public Employee get(int id) {
+    public Employee get(Long id) {
         Session currentSession = sessionFactory.getCurrentSession();
         Employee employee = currentSession.get(Employee.class, id);
         return employee;
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Employee employee = session.byId(Employee.class).load(id);
         session.delete(employee);
+    }
+
+    @Override
+    public void update(Employee employee) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(employee);
+    }
+
+    public Optional<Employee> getEmployeeByPosition(Position position){
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createNamedQuery("Employee_FindByPosition", Employee.class);
+        query.setParameter("position", position);
+        return query.getResultList()
+                .stream()
+                .findFirst();
     }
 }

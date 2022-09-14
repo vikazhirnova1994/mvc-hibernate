@@ -3,37 +3,52 @@ package com.project.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-
-import javax.persistence.*;
-import java.time.LocalDate;
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Column;
+import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.FetchType;
+import javax.persistence.CascadeType;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @author Victoria Zhirnova
+ * @project mvc-hibernate
+ */
+
+
+@org.hibernate.annotations.NamedQuery(
+        name = "Employee_FindByPosition",
+        query = "from Employee empl where empl.position = :position")
 @Entity
-@Table(name = "project")
+@Table(name = "employee")
 @NoArgsConstructor
-@ToString(of= {"project_id", "customer_id", "name_project", "createat", "finishat"})
-@Getter
 @Setter
+@Getter
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id")
-    private int employeeId;
+    private Long employeeId;
 
-    // Соединение с помощью столбца внешнего ключа
-    // Обязательно для поддержки отложенной загрузки с помощью прокси-объектов
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, optional = false)
-    @JoinColumn(name = "position_ID", unique = true)
-    private Position position;
-
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name")
     private String lastName;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @JoinColumn(name = "position_id", unique = true, nullable = false) // insertable = false, updatable = false
+    private Position position;
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
@@ -42,48 +57,4 @@ public class Employee {
             inverseJoinColumns = { @JoinColumn(name = "project_id") }
     )
     private Set<Project> projects = new HashSet<>();
-
-    public int getId() {
-        return employeeId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Set<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
-    }
 }

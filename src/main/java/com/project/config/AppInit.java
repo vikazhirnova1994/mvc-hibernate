@@ -1,7 +1,12 @@
 package com.project.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.Filter;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 /**
  * @author Victoria Zhirnova
@@ -26,4 +31,10 @@ public class AppInit extends
     protected String[] getServletMappings() {
         return new String[] { "/" };
     }
+
+    @Override
+    protected Filter[] getServletFilters() {
+        return new Filter[] { new HiddenHttpMethodFilter() };
+    }
+
 }

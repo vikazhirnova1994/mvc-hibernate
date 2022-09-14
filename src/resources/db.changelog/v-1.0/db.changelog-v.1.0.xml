@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <include file="01-changeset-position-table.xml" relativeToChangelogFile="true"/>
+    <include file="02-changeset-employee-table.xml" relativeToChangelogFile="true"/>
+    <include file="03-changeset-customer-table.xml" relativeToChangelogFile="true"/>
+    <include file="04-changeset-project-table.xml" relativeToChangelogFile="true"/>
+    <include file="05-changeset-employee_project-table.xml" relativeToChangelogFile="true"/>
+
+    <include file="06-changeset-insert-table.xml" relativeToChangelogFile="true"/>
+</databaseChangeLog>

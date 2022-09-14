@@ -1,87 +1,57 @@
 package com.project.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-
-import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import javax.persistence.FetchType;
+import javax.persistence.CascadeType;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author Victoria Zhirnova
  * @project mvc-hibernate
  */
 
+@org.hibernate.annotations.NamedQuery(
+        name = "Customer_FindByName",
+        query = "from Customer customer where customer.name = :name")
+@Entity
 @NoArgsConstructor
 @Setter
 @Getter
-@ToString(of= {"customer_id", "project_id", "name","email"})
-@Entity
-@Table(name="customer")
+@Table(name = "customer")
 public class Customer {
+
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="customer_id")
-    private int customerId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "customer_id")
+    private Long customerId;
 
-    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "customerOfProject") //, orphanRemoval = true
-    List<Project> projects;
-
-    @Column(name="name")
+    @Column(name = "customer_name")
     private String name;
 
-    @Column(name="email")
+    @Column(name = "email", unique = true)
     private String email;
 
-    public int getCustomerId() {
-        return customerId;
+    @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "customer") //, orphanRemoval = true
+    List<Project> projects = new ArrayList<>();
+    public void addProject(Project project) {
+        projects.add(project);
+        project.setCustomer(this);
     }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void removeProject(Project project) {
+        projects.remove(project);
+        project.setCustomer(null);
     }
-
-    public List<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(List<Project> projects) {
-        this.projects = projects;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Customer customer = (Customer) o;
-        return customerId == customer.customerId && Objects.equals(projects, customer.projects) && Objects.equals(name, customer.name) && Objects.equals(email, customer.email);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(customerId, projects, name, email);
-    }
-
-    public int getId() {
-        return customerId;
-    }
-
 }

@@ -13,34 +13,43 @@
 <html>
 <head>
     <meta charset="ISO-8859-1">
-    <title>Spring MVC 5 - form handling | Java Guides</title>
+    <title>MVC Hibernate</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
 
 </head>
 <body>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Navbar</a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/customer/list">Customer</a> <span class="sr-only"> current</span></a>
+            <a class="nav-item nav-link" href="/project/list">Project</a>
+            <a class="nav-item nav-link " href="/employee/list">Employee </a>
+            <a class="nav-item nav-link " href="/position/list">Position </a>
+        </div>
+    </div>
+</nav>
 
 <div class="container">
     <div class="col-md-offset-2 col-md-7">
-        <h2 class="text-center">Spring MVC 5 + Hibernate 5 + JSP + MySQL
-            Example</h2>
+        <h2 class="text-center">Add Customer</h2>
         <div class="panel panel-info">
-            <div class="panel-heading">
-                <div class="panel-title">Add Customer</div>
-            </div>
             <div class="panel-body">
-                <form:form action="saveUser" cssClass="form-horizontal"
-                           method="post" modelAttribute="user">
+                <form:form action="saveCustomer" cssClass="form-horizontal"
+                           method="post" modelAttribute="customer">
 
-                    <!-- need to associate this data with user id -->
-                    <form:hidden path="id" />
+                    <form:hidden path="customerId" />
 
                     <div class="form-group">
-                        <label for="name" class="col-md-3 control-label">First
-                            Name</label>
+                        <label for="name" class="col-md-3 control-label">First Name</label>
                         <div class="col-md-9">
                             <form:input path="name" cssClass="form-control" />
+                        </div>
+                        <div class="col-md-3">
+                            <form:errors path="name" cssClass="alert alert-warning" />
                         </div>
                     </div>
 
@@ -49,15 +58,16 @@
                         <div class="col-md-9">
                             <form:input path="email" cssClass="form-control" />
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <!-- Button -->
-                        <div class="col-md-offset-3 col-md-9">
-                            <form:button cssClass="btn btn-primary">Submit</form:button>
+                        <div class="col-md-3">
+                            <form:errors path="email" cssClass="alert alert-warning" />
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-9">
+                            <form:button cssClass="btn btn-primary">Create</form:button>
+                        </div>
+                    </div>
                 </form:form>
             </div>
         </div>

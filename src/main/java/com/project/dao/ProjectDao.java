@@ -1,6 +1,5 @@
 package com.project.dao;
 
-import com.project.domain.Employee;
 import com.project.domain.Project;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,8 +17,11 @@ import java.util.List;
  * @project mvc-hibernate
  */
 
+
+//LOGGER
+
 @Repository
-public class ProjectDao implements DAO<Project>{
+public class ProjectDao implements IDao<Project, Long> {
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -37,20 +39,26 @@ public class ProjectDao implements DAO<Project>{
     @Override
     public void save(Project project) {
         Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.saveOrUpdate(project);
+        currentSession.save(project);
     }
 
     @Override
-    public Project get(int id) {
+    public Project get(Long id) {
         Session currentSession = sessionFactory.getCurrentSession();
         Project project = currentSession.get(Project.class, id);
         return project;
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Project project = session.byId(Project.class).load(id);
         session.delete(project);
+    }
+
+    @Override
+    public void update(Project project) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(project);
     }
 }
